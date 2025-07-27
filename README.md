@@ -32,6 +32,7 @@ forum-frontend/
 │   │   ├── Card/
 │   │   └── ...
 │   ├── pages/              # 各个独立的页面组件，对应你的任务列表
+            /   # layout 渲染最基础的导航栏, 页脚等
 │   │   ├── HomePage/         # 对应“首页”
 │   │   │   ├── index.jsx
 │   │   │   └── style.css
@@ -44,7 +45,7 @@ forum-frontend/
 │   │   ├── TopicPage/        # 对应“话题页”
 │   │   │   ├── index.jsx
 │   │   │   └── style.css
-│   │   ├── DiscussionPage/   # 对应“话题 / 参与讨论页”或发帖页面
+│   │   ├── Publish/   # 发帖页面
 │   │   │   ├── index.jsx
 │   │   │   └── style.css
 │   │   ├── RankingPage/      # 对应“文章排行榜”

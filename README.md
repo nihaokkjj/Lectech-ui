@@ -48,9 +48,15 @@ forum-frontend/
 │   │   ├── RankingPage/      # 对应“文章排行榜”
 │   │   │   ├── index.jsx
 │   │   │   └── style.css
-│   │   ├── AuthPage/         # 对应“登录 / 注册”
+│   │   ├── LoginPage/         # 对应“登录 / 注册”
 │   │   │   ├── index.jsx
 │   │   │   └── style.css
+|   |   |── Register/         #注册页面
+|   |   |
+|   |   |── Search/         #搜索页面
+|   |   |
+|   |   |── Profile/         #个人资料页面
+|   |   |
 │   │   └── NotFoundPage/     # 404页面
 │   ├── router/             # 路由配置（对应“路由实现”）
 │   │   └── index.js        # 定义所有前端路由

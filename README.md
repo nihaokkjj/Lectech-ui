@@ -16,6 +16,8 @@ src/: 这是应用程序的核心代码所在。
 
 ## 整体结构
 
+```
+
 forum-frontend/
 ├── public/                 # 静态资源，如 index.html, favicon.ico
 │   ├── index.html
@@ -72,3 +74,4 @@ forum-frontend/
 ├── package.json            # 项目依赖和脚本
 ├── .env                    # 环境变量
 └── README.md
+```

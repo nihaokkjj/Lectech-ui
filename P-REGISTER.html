@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>注册 - lectech 技术交流论坛</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#4F46E5', // 主色调：深紫色
+                        secondary: '#6366F1', // 次要色调：浅紫色
+                        tertiary: '#10B981', // 成功色：绿色
+                        danger: '#EF4444', // 危险色：红色
+                        warning: '#F59E0B', // 警告色：橙色
+                        info: '#3B82F6', // 信息色：蓝色
+                        light: '#F3F4F6', // 浅色背景
+                        dark: '#1F2937', // 深色文本
+                        'gray-50': '#F9FAFB',
+                        'gray-100': '#F3F4F6',
+                        'gray-200': '#E5E7EB',
+                        'gray-300': '#D1D5DB',
+                        'gray-400': '#9CA3AF',
+                        'gray-500': '#6B7280',
+                        'gray-600': '#4B5563',
+                        'gray-700': '#374151',
+                        'gray-800': '#1F2937',
+                        'gray-900': '#111827',
+                    },
+                    boxShadow: {
+                        'card': '0 4px 12px rgba(0, 0, 0, 0.05)',
+                        'nav': '0 2px 10px rgba(0, 0, 0, 0.05)',
+                        'btn': '0 2px 5px rgba(79, 70, 229, 0.2)',
+                        'hover': '0 8px 16px rgba(0, 0, 0, 0.1)',
+                    },
+                    borderRadius: {
+                        'xl': '0.75rem',
+                        '2xl': '1rem',
+                        '3xl': '1.5rem',
+                    },
+                    fontFamily: {
+                        'sans': ['-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
+                    },
+                    fontSize: {
+                        'xs': '0.75rem',
+                        'sm': '0.875rem',
+                        'base': '1rem',
+                        'lg': '1.125rem',
+                        'xl': '1.25rem',
+                        '2xl': '1.5rem',
+                        '3xl': '1.875rem',
+                        '4xl': '2.25rem',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .btn-primary-effect {
+            transition: all 0.2s ease;
+        }
+        
+        .btn-primary-effect:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(79, 70, 229, 0.3);
+        }
+        
+        .form-input-focus:focus {
+            outline: none;
+            border-color: #4F46E5;
+            box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.2);
+        }
+        
+        .tab-active {
+            color: #4F46E5;
+            border-bottom: 2px solid #4F46E5;
+        }
+        
+        .tab-inactive {
+            color: #6B7280;
+            border-bottom: 2px solid transparent;
+        }
+        
+        .tab-inactive:hover {
+            color: #4B5563;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans text-gray-800 min-h-screen flex flex-col">
+    <!-- 顶部导航栏 -->
+    <header id="main-header" class="bg-white shadow-nav">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo -->
+                <div id="logo" class="flex items-center">
+                    <a href="P-HOME.html" class="flex items-center">
+                        <span class="text-primary text-2xl font-bold mr-1">lec</span>
+                        <span class="text-gray-800 text-2xl font-bold">tech</span>
+                    </a>
+                </div>
+                
+                <!-- 右侧导航 -->
+                <div class="flex items-center">
+                    <a href="P-LOGIN.html" class="text-gray-600 hover:text-primary">已有账号？去登录</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 主内容区 -->
+    <main class="flex-grow flex items-center justify-center py-12 px-4">
+        <div id="register-container" class="bg-white rounded-xl shadow-card p-8 w-full max-w-md">
+            <div class="text-center mb-8">
+                <h1 class="text-2xl font-bold text-gray-800">注册 lectech</h1>
+                <p class="text-gray-500 mt-2">加入技术交流社区，分享你的知识</p>
+            </div>
+            
+            <!-- 注册方式选择标签 -->
+            <div id="register-tabs" class="flex border-b border-gray-200 mb-6">
+                <button id="tab-email" class="flex-1 py-3 text-center font-medium tab-active">邮箱注册</button>
+                <button id="tab-phone" class="flex-1 py-3 text-center font-medium tab-inactive">手机号注册</button>
+            </div>
+            
+            <!-- 邮箱注册表单 -->
+            <form id="email-register-form" class="space-y-5">
+                <div>
+                    <label for="username" class="block text-sm font-medium text-gray-700 mb-1">用户名</label>
+                    <input type="text" id="username" name="username" class="w-full px-4 py-3 rounded-lg border border-gray-300 form-input-focus" placeholder="请设置用户名" required>
+                </div>
+                
+                <div>
+                    <label for="email" class="block text-sm font-medium text-gray-700 mb-1">邮箱</label>
+                    <input type="email" id="email" name="email" class="w-full px-4 py-3 rounded-lg border border-gray-300 form-input-focus" placeholder="请输入邮箱" required>
+                </div>
+                
+                <div>
+                    <label for="password" class="block text-sm font-medium text-gray-700 mb-1">密码</label>
+                    <div class="relative">
+                        <input type="password" id="password" name="password" class="w-full px-4 py-3 rounded-lg border border-gray-300 form-input-focus" placeholder="请设置密码" required>
+                        <button type="button" id="toggle-password" class="absolute right-3 top-3 text-gray-400 hover:text-gray-600">
+                            <i class="far fa-eye"></i>
+                        </button>
+                    </div>
+                    <p class="text-xs text-gray-500 mt-1">密码长度至少8位，包含字母和数字</p>
+                </div>
+                
+                <div>
+                    <label for="confirm-password" class="block text-sm font-medium text-gray-700 mb-1">确认密码</label>
+                    <input type="password" id="confirm-password" name="confirm-password" class="w-full px-4 py-3 rounded-lg border border-gray-300 form-input-focus" placeholder="请再次输入密码" required>
+                </div>
+                
+                <div class="flex items-start">
+                    <input type="checkbox" id="agree-terms" name="agree-terms" class="mt-1 h-4 w-4 text-primary border-gray-300 rounded focus:ring-primary" required>
+                    <label for="agree-terms" class="ml-2 block text-sm text-gray-600">
+                        我已阅读并同意 <a href="#" id="terms-link" class="text-primary hover:underline">用户协议</a> 和 <a href="#" id="privacy-link" class="text-primary hover:underline">隐私政策</a>
+                    </label>
+                </div>
+                
+                <button type="submit" id="email-register-btn" class="w-full bg-primary hover:bg-secondary text-white py-3 rounded-lg font-medium btn-primary-effect">注册</button>
+            </form>
+            
+            <!-- 手机号注册表单 - 默认隐藏 -->
+            <form id="phone-register-form" class="space-y-5 hidden">
+                <div>
+                    <label for="phone-username" class="block text-sm font-medium text-gray-700 mb-1">用户名</label>
+                    <input type="text" id="phone-username" name="phone-username" class="w-full px-4 py-3 rounded-lg border border-gray-300 form-input-focus" placeholder="请设置用户名" required>
+                </div>
+                
+                <div>
+                    <label for="phone-number" class="block text-sm font-medium text-gray-700 mb-1">手机号</label>
+                    <input type="tel" id="phone-number" name="phone-number" class="w-full px-4 py-3 rounded-lg border border-gray-300 form-input-focus" placeholder="请输入手机号" required>
+                </div>
+                
+                <div>
+                    <label for="verification-code" class="block text-sm font-medium text-gray-700 mb-1">验证码</label>
+                    <div class="flex space-x-3">
+                        <input type="text" id="verification-code" name="verification-code" class="flex-1 px-4 py-3 rounded-lg border border-gray-300 form-input-focus" placeholder="请输入验证码" required>
+                        <button type="button" id="send-code-btn" class="px-4 py-3 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 font-medium">获取验证码</button>
+                    </div>
+                </div>
+                
+                <div>
+                    <label for="phone-password" class="block text-sm font-medium text-gray-700 mb-1">密码</label>
+                    <div class="relative">
+                        <input type="password" id="phone-password" name="phone-password" class="w-full px-4 py-3 rounded-lg border border-gray-300 form-input-focus" placeholder="请设置密码" required>
+                        <button type="button" id="toggle-phone-password" class="absolute right-3 top-3 text-gray-400 hover:text-gray-600">
+                            <i class="far fa-eye"></i>
+                        </button>
+                    </div>
+                    <p class="text-xs text-gray-500 mt-1">密码长度至少8位，包含字母和数字</p>
+                </div>
+                
+                <div>
+                    <label for="phone-confirm-password" class="block text-sm font-medium text-gray-700 mb-1">确认密码</label>
+                    <input type="password" id="phone-confirm-password" name="phone-confirm-password" class="w-full px-4 py-3 rounded-lg border border-gray-300 form-input-focus" placeholder="请再次输入密码" required>
+                </div>
+                
+                <div class="flex items-start">
+                    <input type="checkbox" id="phone-agree-terms" name="phone-agree-terms" class="mt-1 h-4 w-4 text-primary border-gray-300 rounded focus:ring-primary" required>
+                    <label for="phone-agree-terms" class="ml-2 block text-sm text-gray-600">
+                        我已阅读并同意 <a href="#" id="phone-terms-link" class="text-primary hover:underline">用户协议</a> 和 <a href="#" id="phone-privacy-link" class="text-primary hover:underline">隐私政策</a>
+                    </label>
+                </div>
+                
+                <button type="submit" id="phone-register-btn" class="w-full bg-primary hover:bg-secondary text-white py-3 rounded-lg font-medium btn-primary-effect">注册</button>
+            </form>
+            
+            <!-- 社交媒体登录 -->
+            <div class="mt-8">
+                <div class="flex items-center justify-center">
+                    <span class="h-px bg-gray-300 flex-grow"></span>
+                    <span class="px-4 text-sm text-gray-500">其他方式登录</span>
+                    <span class="h-px bg-gray-300 flex-grow"></span>
+                </div>
+                
+                <div class="flex justify-center space-x-6 mt-4">
+                    <button id="wechat-login-btn" class="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center text-xl text-green-600 hover:bg-gray-200">
+                        <i class="fab fa-weixin"></i>
+                    </button>
+                    <button id="qq-login-btn" class="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center text-xl text-blue-500 hover:bg-gray-200">
+                        <i class="fab fa-qq"></i>
+                    </button>
+                    <button id="github-login-btn" class="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center text-xl text-gray-800 hover:bg-gray-200">
+                        <i class="fab fa-github"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- 底部版权信息 -->
+    <footer id="main-footer" class="bg-white py-6">
+        <div class="container mx-auto px-4">
+            <div class="text-center">
+                <p class="text-gray-500 text-sm">© 2023 lectech. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 注册方式切换
+            const tabEmail = document.querySelector('#tab-email');
+            const tabPhone = document.querySelector('#tab-phone');
+            const emailForm = document.querySelector('#email-register-form');
+            const phoneForm = document.querySelector('#phone-register-form');
+            
+            tabEmail.addEventListener('click', function() {
+                tabEmail.classList.add('tab-active');
+                tabEmail.classList.remove('tab-inactive');
+                tabPhone.classList.add('tab-inactive');
+                tabPhone.classList.remove('tab-active');
+                
+                emailForm.classList.remove('hidden');
+                phoneForm.classList.add('hidden');
+            });
+            
+            tabPhone.addEventListener('click', function() {
+                tabPhone.classList.add('tab-active');
+                tabPhone.classList.remove('tab-inactive');
+                tabEmail.classList.add('tab-inactive');
+                tabEmail.classList.remove('tab-active');
+                
+                phoneForm.classList.remove('hidden');
+                emailForm.classList.add('hidden');
+            });
+            
+            // 密码显示/隐藏切换
+            const togglePassword = document.querySelector('#toggle-password');
+            const passwordField = document.querySelector('#password');
+            
+            togglePassword.addEventListener('click', function() {
+                const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordField.setAttribute('type', type);
+                this.querySelector('i').classList.toggle('fa-eye');
+                this.querySelector('i').classList.toggle('fa-eye-slash');
+            });
+            
+            const togglePhonePassword = document.querySelector('#toggle-phone-password');
+            const phonePasswordField = document.querySelector('#phone-password');
+            
+            togglePhonePassword.addEventListener('click', function() {
+                const type = phonePasswordField.getAttribute('type') === 'password' ? 'text' : 'password';
+                phonePasswordField.setAttribute('type', type);
+                this.querySelector('i').classList.toggle('fa-eye');
+                this.querySelector('i').classList.toggle('fa-eye-slash');
+            });
+            
+            // 发送验证码
+            const sendCodeBtn = document.querySelector('#send-code-btn');
+            
+            sendCodeBtn.addEventListener('click', function() {
+                const phoneNumber = document.querySelector('#phone-number').value;
+                if (!phoneNumber) {
+                    alert('请输入手机号');
+                    return;
+                }
+                
+                // 模拟发送验证码
+                this.textContent = '60s后重新获取';
+                this.disabled = true;
+                this.classList.add('bg-gray-200', 'cursor-not-allowed');
+                
+                let countdown = 60;
+                const timer = setInterval(() => {
+                    countdown--;
+                    this.textContent = `${countdown}s后重新获取`;
+                    
+                    if (countdown <= 0) {
+                        clearInterval(timer);
+                        this.textContent = '获取验证码';
+                        this.disabled = false;
+                        this.classList.remove('bg-gray-200', 'cursor-not-allowed');
+                    }
+                }, 1000);
+            });
+            
+            // 邮箱注册表单提交
+            const emailRegisterForm = document.querySelector('#email-register-form');
+            
+            emailRegisterForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const username = document.querySelector('#username').value;
+                const email = document.querySelector('#email').value;
+                const password = document.querySelector('#password').value;
+                const confirmPassword = document.querySelector('#confirm-password').value;
+                const agreeTerms = document.querySelector('#agree-terms').checked;
+                
+                // 表单验证
+                if (!username || !email || !password || !confirmPassword) {
+                    alert('请填写完整信息');
+                    return;
+                }
+                
+                if (password !== confirmPassword) {
+                    alert('两次输入的密码不一致');
+                    return;
+                }
+                
+                if (!agreeTerms) {
+                    alert('请阅读并同意用户协议和隐私政策');
+                    return;
+                }
+                
+                // 模拟注册成功，跳转到登录页
+                alert('注册成功，请登录');
+                window.location.href = 'P-LOGIN.html';
+            });
+            
+            // 手机号注册表单提交
+            const phoneRegisterForm = document.querySelector('#phone-register-form');
+            
+            phoneRegisterForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const username = document.querySelector('#phone-username').value;
+                const phoneNumber = document.querySelector('#phone-number').value;
+                const verificationCode = document.querySelector('#verification-code').value;
+                const password = document.querySelector('#phone-password').value;
+                const confirmPassword = document.querySelector('#phone-confirm-password').value;
+                const agreeTerms = document.querySelector('#phone-agree-terms').checked;
+                
+                // 表单验证
+                if (!username || !phoneNumber || !verificationCode || !password || !confirmPassword) {
+                    alert('请填写完整信息');
+                    return;
+                }
+                
+                if (password !== confirmPassword) {
+                    alert('两次输入的密码不一致');
+                    return;
+                }
+                
+                if (!agreeTerms) {
+                    alert('请阅读并同意用户协议和隐私政策');
+                    return;
+                }
+                
+                // 模拟注册成功，跳转到登录页
+                alert('注册成功，请登录');
+                window.location.href = 'P-LOGIN.html';
+            });
+            
+            // 社交媒体登录
+            document.querySelector('#wechat-login-btn').addEventListener('click', function() {
+                console.log('需要调用第三方接口实现微信登录');
+                alert('微信登录功能暂未实现');
+            });
+            
+            document.querySelector('#qq-login-btn').addEventListener('click', function() {
+                console.log('需要调用第三方接口实现QQ登录');
+                alert('QQ登录功能暂未实现');
+            });
+            
+            document.querySelector('#github-login-btn').addEventListener('click', function() {
+                console.log('需要调用第三方接口实现GitHub登录');
+                alert('GitHub登录功能暂未实现');
+            });
+            
+            // 用户协议和隐私政策链接
+            document.querySelector('#terms-link').addEventListener('click', function(e) {
+                e.preventDefault();
+                alert('用户协议页面暂未实现');
+            });
+            
+            document.querySelector('#privacy-link').addEventListener('click', function(e) {
+                e.preventDefault();
+                alert('隐私政策页面暂未实现');
+            });
+            
+            document.querySelector('#phone-terms-link').addEventListener('click', function(e) {
+                e.preventDefault();
+                alert('用户协议页面暂未实现');
+            });
+            
+            document.querySelector('#phone-privacy-link').addEventListener('click', function(e) {
+                e.preventDefault();
+                alert('隐私政策页面暂未实现');
+            });
+        });
+    </script>
+</body>
+</html>

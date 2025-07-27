@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登录 - lectech 技术交流论坛</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#4F46E5', // 主色调：深紫色
+                        secondary: '#6366F1', // 次要色调：浅紫色
+                        tertiary: '#10B981', // 成功色：绿色
+                        danger: '#EF4444', // 危险色：红色
+                        warning: '#F59E0B', // 警告色：橙色
+                        info: '#3B82F6', // 信息色：蓝色
+                        light: '#F3F4F6', // 浅色背景
+                        dark: '#1F2937', // 深色文本
+                        'gray-50': '#F9FAFB',
+                        'gray-100': '#F3F4F6',
+                        'gray-200': '#E5E7EB',
+                        'gray-300': '#D1D5DB',
+                        'gray-400': '#9CA3AF',
+                        'gray-500': '#6B7280',
+                        'gray-600': '#4B5563',
+                        'gray-700': '#374151',
+                        'gray-800': '#1F2937',
+                        'gray-900': '#111827',
+                    },
+                    boxShadow: {
+                        'card': '0 4px 12px rgba(0, 0, 0, 0.05)',
+                        'nav': '0 2px 10px rgba(0, 0, 0, 0.05)',
+                        'btn': '0 2px 5px rgba(79, 70, 229, 0.2)',
+                        'hover': '0 8px 16px rgba(0, 0, 0, 0.1)',
+                    },
+                    borderRadius: {
+                        'xl': '0.75rem',
+                        '2xl': '1rem',
+                        '3xl': '1.5rem',
+                    },
+                    fontFamily: {
+                        'sans': ['-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
+                    },
+                    fontSize: {
+                        'xs': '0.75rem',
+                        'sm': '0.875rem',
+                        'base': '1rem',
+                        'lg': '1.125rem',
+                        'xl': '1.25rem',
+                        '2xl': '1.5rem',
+                        '3xl': '1.875rem',
+                        '4xl': '2.25rem',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .btn-primary-effect {
+            transition: all 0.2s ease;
+        }
+        
+        .btn-primary-effect:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(79, 70, 229, 0.3);
+        }
+        
+        .form-input-focus:focus {
+            outline: none;
+            border-color: #4F46E5;
+            box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.2);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans text-gray-800 min-h-screen flex flex-col">
+    <!-- 顶部导航栏 -->
+    <header id="main-header" class="bg-white shadow-nav">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-center h-16">
+                <!-- Logo -->
+                <div id="logo" class="flex items-center">
+                    <a href="P-HOME.html" class="flex items-center">
+                        <span class="text-primary text-2xl font-bold mr-1">lec</span>
+                        <span class="text-gray-800 text-2xl font-bold">tech</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 主内容区 -->
+    <main class="flex-1 flex items-center justify-center px-4 py-12">
+        <div id="login-container" class="bg-white rounded-xl shadow-card w-full max-w-md p-8">
+            <div id="login-header" class="text-center mb-8">
+                <h1 class="text-2xl font-bold text-gray-800">登录 lectech</h1>
+                <p class="text-gray-500 mt-2">欢迎回来，请登录您的账号</p>
+            </div>
+            
+            <form id="login-form" class="space-y-6">
+                <div id="username-field" class="space-y-2">
+                    <label for="username" class="block text-sm font-medium text-gray-700">用户名/邮箱/手机号</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="fas fa-user text-gray-400"></i>
+                        </div>
+                        <input type="text" id="username" name="username" class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg form-input-focus" placeholder="请输入用户名/邮箱/手机号" required>
+                    </div>
+                </div>
+                
+                <div id="password-field" class="space-y-2">
+                    <label for="password" class="block text-sm font-medium text-gray-700">密码</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="fas fa-lock text-gray-400"></i>
+                        </div>
+                        <input type="password" id="password" name="password" class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg form-input-focus" placeholder="请输入密码" required>
+                        <div id="toggle-password" class="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer">
+                            <i class="fas fa-eye-slash text-gray-400"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="remember-forgot" class="flex items-center justify-between">
+                    <div class="flex items-center">
+                        <input type="checkbox" id="remember-me" name="remember-me" class="h-4 w-4 text-primary border-gray-300 rounded focus:ring-primary">
+                        <label for="remember-me" class="ml-2 block text-sm text-gray-700">记住密码</label>
+                    </div>
+                    <a id="forgot-password" href="#" class="text-sm text-primary hover:text-secondary">忘记密码？</a>
+                </div>
+                
+                <div>
+                    <button id="login-button" type="submit" class="w-full bg-primary hover:bg-secondary text-white py-3 rounded-lg btn-primary-effect">
+                        登录
+                    </button>
+                </div>
+                
+                <div id="register-link" class="text-center">
+                    <span class="text-gray-600">还没有账号？</span>
+                    <a href="P-REGISTER.html" class="text-primary hover:text-secondary font-medium">立即注册</a>
+                </div>
+            </form>
+        </div>
+    </main>
+    
+    <!-- 底部版权信息 -->
+    <footer id="main-footer" class="bg-white py-6">
+        <div class="container mx-auto px-4">
+            <div class="text-center">
+                <p class="text-gray-500 text-sm">© 2023 lectech. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 密码显示/隐藏切换
+            document.querySelector('#toggle-password').addEventListener('click', function() {
+                const passwordInput = document.querySelector('#password');
+                const icon = this.querySelector('i');
+                
+                if (passwordInput.type === 'password') {
+                    passwordInput.type = 'text';
+                    icon.classList.remove('fa-eye-slash');
+                    icon.classList.add('fa-eye');
+                } else {
+                    passwordInput.type = 'password';
+                    icon.classList.remove('fa-eye');
+                    icon.classList.add('fa-eye-slash');
+                }
+            });
+            
+            // 登录表单提交
+            document.querySelector('#login-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const username = document.querySelector('#username').value;
+                const password = document.querySelector('#password').value;
+                const rememberMe = document.querySelector('#remember-me').checked;
+                
+                console.log('登录信息:', { username, password, rememberMe });
+                
+                // 模拟登录成功，跳转到首页
+                window.location.href = 'P-HOME.html';
+            });
+            
+            // 忘记密码链接点击
+            document.querySelector('#forgot-password').addEventListener('click', function(e) {
+                e.preventDefault();
+                alert('忘记密码功能将在后续版本中实现');
+            });
+            
+            // Logo点击返回首页
+            document.querySelector('#logo').addEventListener('click', function(e) {
+                e.preventDefault();
+                window.location.href = 'P-HOME.html';
+            });
+        });
+    </script>
+</body>
+</html>

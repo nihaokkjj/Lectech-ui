@@ -16,8 +16,8 @@ src/: 这是应用程序的核心代码所在。
 
 ## 整体结构
 
-```
 
+```
 forum-frontend/
 ├── public/                 # 静态资源，如 index.html, favicon.ico
 │   ├── index.html
@@ -32,7 +32,8 @@ forum-frontend/
 │   │   ├── Card/
 │   │   └── ...
 │   ├── pages/              # 各个独立的页面组件，对应你的任务列表
-            /   # layout 渲染最基础的导航栏, 页脚等
+|   |
+|   |   /   # layout 渲染最基础的导航栏, 页脚等
 │   │   ├── HomePage/         # 对应“首页”
 │   │   │   ├── index.jsx
 │   │   │   └── style.css

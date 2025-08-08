@@ -1,0 +1,1445 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>话题讨论 - lectech</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#4F46E5', // 主色调：深紫色
+                        secondary: '#6366F1', // 次要色调：浅紫色
+                        tertiary: '#10B981', // 成功色：绿色
+                        danger: '#EF4444', // 危险色：红色
+                        warning: '#F59E0B', // 警告色：橙色
+                        info: '#3B82F6', // 信息色：蓝色
+                        light: '#F3F4F6', // 浅色背景
+                        dark: '#1F2937', // 深色文本
+                        'gray-50': '#F9FAFB',
+                        'gray-100': '#F3F4F6',
+                        'gray-200': '#E5E7EB',
+                        'gray-300': '#D1D5DB',
+                        'gray-400': '#9CA3AF',
+                        'gray-500': '#6B7280',
+                        'gray-600': '#4B5563',
+                        'gray-700': '#374151',
+                        'gray-800': '#1F2937',
+                        'gray-900': '#111827',
+                    },
+                    boxShadow: {
+                        'card': '0 4px 12px rgba(0, 0, 0, 0.05)',
+                        'nav': '0 2px 10px rgba(0, 0, 0, 0.05)',
+                        'btn': '0 2px 5px rgba(79, 70, 229, 0.2)',
+                        'hover': '0 8px 16px rgba(0, 0, 0, 0.1)',
+                    },
+                    borderRadius: {
+                        'xl': '0.75rem',
+                        '2xl': '1rem',
+                        '3xl': '1.5rem',
+                    },
+                    fontFamily: {
+                        'sans': ['-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
+                    },
+                    fontSize: {
+                        'xs': '0.75rem',
+                        'sm': '0.875rem',
+                        'base': '1rem',
+                        'lg': '1.125rem',
+                        'xl': '1.25rem',
+                        '2xl': '1.5rem',
+                        '3xl': '1.875rem',
+                        '4xl': '2.25rem',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .tag {
+            transition: all 0.2s ease;
+        }
+        
+        .tag:hover {
+            background-color: rgba(79, 70, 229, 0.1);
+            color: #4F46E5;
+        }
+        
+        .nav-link {
+            position: relative;
+            transition: all 0.2s ease;
+        }
+        
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: #4F46E5;
+        }
+        
+        .nav-link:hover:not(.active)::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: #6366F1;
+            transform: scaleX(0.7);
+            opacity: 0.7;
+            transition: all 0.2s ease;
+        }
+        
+        .btn-primary-effect {
+            transition: all 0.2s ease;
+        }
+        
+        .btn-primary-effect:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(79, 70, 229, 0.3);
+        }
+        
+        .topic-card {
+            transition: all 0.2s ease;
+        }
+        
+        .topic-card:hover {
+            background-color: rgba(243, 244, 246, 0.5);
+        }
+        
+        .avatar-stack .avatar:not(:first-child) {
+            margin-left: -12px;
+        }
+        
+        .discussion-card {
+            border-bottom: 1px solid #E5E7EB;
+            transition: all 0.2s ease;
+        }
+        
+        .discussion-card:hover {
+            background-color: rgba(243, 244, 246, 0.5);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans text-gray-800">
+    <!-- 顶部导航栏 -->
+    <header id="main-header" class="bg-white shadow-nav fixed top-0 left-0 right-0 z-50">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo -->
+                <div id="logo" class="flex items-center">
+                    <a href="P-HOME.html" class="flex items-center">
+                        <span class="text-primary text-2xl font-bold mr-1">lec</span>
+                        <span class="text-gray-800 text-2xl font-bold">tech</span>
+                    </a>
+                </div>
+                
+                <!-- 主导航菜单 - 中等屏幕以上显示 -->
+                <nav id="main-nav" class="hidden md:flex items-center space-x-8">
+                    <a href="P-HOME.html" class="nav-link text-gray-600 hover:text-primary">首页</a>
+                    <a href="P-TOPIC_DISCUSSION.html" class="nav-link active text-primary font-medium">话题</a>
+                    <a href="P-RANKING.html" class="nav-link text-gray-600 hover:text-primary">排行榜</a>
+                </nav>
+                
+                <!-- 搜索框 -->
+                <div id="search-container" class="hidden md:flex flex-1 max-w-md mx-8">
+                    <div class="relative w-full">
+                        <input id="search-input" type="text" placeholder="搜索话题或讨论" class="w-full h-10 pl-10 pr-4 rounded-full bg-gray-100 border-none focus:outline-none focus:ring-2 focus:ring-primary focus:bg-white transition-all duration-200">
+                        <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+                    </div>
+                </div>
+                
+                <!-- 未登录状态按钮 -->
+                <div id="auth-buttons" class="flex items-center space-x-4">
+                    <a href="P-LOGIN.html" class="text-gray-600 hover:text-primary">登录</a>
+                    <a href="P-REGISTER.html" class="bg-primary hover:bg-secondary text-white px-4 py-2 rounded-lg btn-primary-effect">注册</a>
+                </div>
+                
+                <!-- 已登录状态 - 默认隐藏 -->
+                <div id="user-menu" class="hidden items-center space-x-4">
+                    <a href="P-ARTICLE_PUBLISH.html" class="flex items-center space-x-1 text-primary hover:text-secondary">
+                        <i class="fas fa-pen-to-square"></i>
+                        <span>发布文章</span>
+                    </a>
+                    <div class="relative">
+                        <button id="notifications-btn" class="text-gray-600 hover:text-primary relative p-1">
+                            <i class="fas fa-bell text-xl"></i>
+                            <span class="absolute top-0 right-0 bg-danger text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">3</span>
+                        </button>
+                    </div>
+                    <div class="relative">
+                        <button id="profile-dropdown-btn" class="flex items-center space-x-2">
+                            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=256&q=80" alt="用户头像" class="w-8 h-8 rounded-full object-cover">
+                            <span class="text-gray-700 font-medium">JaneDoe</span>
+                            <i class="fas fa-chevron-down text-xs text-gray-400"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- 移动端菜单按钮 -->
+                <button id="mobile-menu-btn" class="md:hidden text-gray-600 hover:text-primary">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- 主内容区 -->
+    <main class="container mx-auto pt-20 px-4 pb-8 flex">
+        <!-- 左侧菜单 -->
+        <aside id="sidebar" class="hidden lg:block w-56 mr-6 flex-shrink-0">
+            <div class="bg-white rounded-xl shadow-card p-4 sticky top-20">
+                <h3 id="topics-filter-title" class="text-gray-700 font-semibold mb-3">话题筛选</h3>
+                <ul id="topics-filter-list" class="space-y-2">
+                    <li>
+                        <a href="#" id="filter-all" class="flex items-center py-2 px-3 rounded-lg bg-primary bg-opacity-10 text-primary">
+                            <i class="fas fa-layer-group mr-2"></i>
+                            <span>全部话题</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" id="filter-hot" class="flex items-center py-2 px-3 rounded-lg text-gray-600 hover:bg-gray-100">
+                            <i class="fas fa-fire mr-2"></i>
+                            <span>热门话题</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" id="filter-new" class="flex items-center py-2 px-3 rounded-lg text-gray-600 hover:bg-gray-100">
+                            <i class="fas fa-clock mr-2"></i>
+                            <span>最新话题</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" id="filter-following" class="flex items-center py-2 px-3 rounded-lg text-gray-600 hover:bg-gray-100">
+                            <i class="fas fa-user-check mr-2"></i>
+                            <span>我关注的</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" id="filter-participated" class="flex items-center py-2 px-3 rounded-lg text-gray-600 hover:bg-gray-100">
+                            <i class="fas fa-comments mr-2"></i>
+                            <span>我参与的</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="bg-white rounded-xl shadow-card p-4 mt-6 sticky top-20">
+                <h3 id="topic-categories-title" class="text-gray-700 font-semibold mb-3">话题分类</h3>
+                <ul id="topic-categories-list" class="space-y-2">
+                    <li>
+                        <a href="#" id="category-frontend" class="flex items-center py-2 px-3 rounded-lg text-gray-600 hover:bg-gray-100">
+                            <i class="fas fa-code mr-2"></i>
+                            <span>前端开发</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" id="category-backend" class="flex items-center py-2 px-3 rounded-lg text-gray-600 hover:bg-gray-100">
+                            <i class="fas fa-server mr-2"></i>
+                            <span>后端开发</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" id="category-mobile" class="flex items-center py-2 px-3 rounded-lg text-gray-600 hover:bg-gray-100">
+                            <i class="fas fa-mobile-alt mr-2"></i>
+                            <span>移动开发</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" id="category-ai" class="flex items-center py-2 px-3 rounded-lg text-gray-600 hover:bg-gray-100">
+                            <i class="fas fa-brain mr-2"></i>
+                            <span>人工智能</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" id="category-bigdata" class="flex items-center py-2 px-3 rounded-lg text-gray-600 hover:bg-gray-100">
+                            <i class="fas fa-database mr-2"></i>
+                            <span>大数据</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" id="category-cloud" class="flex items-center py-2 px-3 rounded-lg text-gray-600 hover:bg-gray-100">
+                            <i class="fas fa-cloud mr-2"></i>
+                            <span>云计算</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" id="category-security" class="flex items-center py-2 px-3 rounded-lg text-gray-600 hover:bg-gray-100">
+                            <i class="fas fa-shield-alt mr-2"></i>
+                            <span>网络安全</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </aside>
+        
+        <!-- 中间主内容区 -->
+        <div id="main-content" class="flex-1 min-w-0">
+            <!-- 话题列表视图 -->
+            <div id="topics-list-view">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-xl font-bold text-gray-800 flex items-center">
+                        <i class="fas fa-comments text-primary mr-2"></i>
+                        话题讨论
+                    </h2>
+                    <div class="flex items-center space-x-3">
+                        <div class="hidden md:flex items-center bg-white rounded-lg shadow-sm">
+                            <button id="sort-hot" class="px-3 py-1.5 text-sm text-primary bg-primary bg-opacity-10 rounded-lg">热门</button>
+                            <button id="sort-new" class="px-3 py-1.5 text-sm text-gray-600 hover:text-primary rounded-lg">最新</button>
+                        </div>
+                        <button id="create-topic-btn" class="bg-primary hover:bg-secondary text-white px-4 py-2 rounded-lg btn-primary-effect flex items-center">
+                            <i class="fas fa-plus mr-2"></i>
+                            <span>创建话题</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-xl shadow-card overflow-hidden">
+                    <!-- 话题列表项1 -->
+                    <div id="topic-1" class="topic-card p-5 border-b border-gray-200">
+                        <div class="flex flex-col md:flex-row">
+                            <div class="flex-1 min-w-0">
+                                <h3 class="text-lg font-bold mb-2 hover:text-primary transition-colors">
+                                    <a href="#" id="topic-title-1" class="topic-title" data-topic-id="1"># 大型语言模型与AI应用</a>
+                                </h3>
+                                <p class="text-gray-600 text-sm mb-3">讨论大型语言模型(LLM)的发展趋势、应用场景及实践经验，分享最新的模型训练、微调和部署技术。</p>
+                                <div class="flex flex-wrap gap-2 mb-3">
+                                    <span class="tag text-xs text-gray-600 bg-gray-100 px-2 py-1 rounded-full">LLM</span>
+                                    <span class="tag text-xs text-gray-600 bg-gray-100 px-2 py-1 rounded-full">AI</span>
+                                    <span class="tag text-xs text-gray-600 bg-gray-100 px-2 py-1 rounded-full">GPT</span>
+                                    <span class="tag text-xs text-gray-600 bg-gray-100 px-2 py-1 rounded-full">人工智能</span>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center">
+                                        <div class="avatar-stack flex -space-x-3">
+                                            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=64&q=80" alt="参与者头像" class="avatar w-6 h-6 rounded-full object-cover border-2 border-white">
+                                            <img src="https://images.unsplash.com/photo-1603415526960-f7e0328c63b1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=64&q=80" alt="参与者头像" class="avatar w-6 h-6 rounded-full object-cover border-2 border-white">
+                                            <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=64&q=80" alt="参与者头像" class="avatar w-6 h-6 rounded-full object-cover border-2 border-white">
+                                            <div class="avatar w-6 h-6 rounded-full bg-gray-200 flex items-center justify-center text-xs text-gray-600 border-2 border-white">+8</div>
+                                        </div>
+                                        <span class="text-gray-500 text-xs ml-2">1.2k人参与</span>
+                                    </div>
+                                    <div class="flex items-center space-x-3 text-gray-500 text-sm">
+                                        <span><i class="far fa-comment mr-1"></i>128</span>
+                                        <span><i class="far fa-clock mr-1"></i>2023-10-20</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-3 md:mt-0 md:ml-4 flex flex-col justify-center">
+                                <button id="join-topic-1" class="join-topic-btn bg-primary hover:bg-secondary text-white px-4 py-2 rounded-lg btn-primary-effect" data-topic-id="1">
+                                    <i class="fas fa-plus mr-1"></i> 参与讨论
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 话题列表项2 -->
+                    <div id="topic-2" class="topic-card p-5 border-b border-gray-200">
+                        <div class="flex flex-col md:flex-row">
+                            <div class="flex-1 min-w-0">
+                                <h3 class="text-lg font-bold mb-2 hover:text-primary transition-colors">
+                                    <a href="#" id="topic-title-2" class="topic-title" data-topic-id="2"># 前端框架选型对比</a>
+                                </h3>
+                                <p class="text-gray-600 text-sm mb-3">React vs Vue vs Angular vs Svelte，各框架优缺点与适用场景分析，分享实际项目中的选型经验和最佳实践。</p>
+                                <div class="flex flex-wrap gap-2 mb-3">
+                                    <span class="tag text-xs text-gray-600 bg-gray-100 px-2 py-1 rounded-full">React</span>
+                                    <span class="tag text-xs text-gray-600 bg-gray-100 px-2 py-1 rounded-full">Vue</span>
+                                    <span class="tag text-xs text-gray-600 bg-gray-100 px-2 py-1 rounded-full">Angular</span>
+                                    <span class="tag text-xs text-gray-600 bg-gray-100 px-2 py-1 rounded-full">Svelte</span>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center">
+                                        <div class="avatar-stack flex -space-x-3">
+                                            <img src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=64&q=80" alt="参与者头像" class="avatar w-6 h-6 rounded-full object-cover border-2 border-white">
+                                            <img src="https://images.unsplash.com/photo-1607746882042-944635dfe10e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=64&q=80" alt="参与者头像" class="avatar w-6 h-6 rounded-full object-cover border-2 border-white">
+                                            <img src="https://images.unsplash.com/photo-1527980965255-d3b416303d12?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=64&q=80" alt="参与者头像" class="avatar w-6 h-6 rounded-full object-cover border-2 border-white">
+                                            <div class="avatar w-6 h-6 rounded-full bg-gray-200 flex items-center justify-center text-xs text-gray-600 border-2 border-white">+5</div>
+                                        </div>
+                                        <span class="text-gray-500 text-xs ml-2">856人参与</span>
+                                    </div>
+                                    <div class="flex items-center space-x-3 text-gray-500 text-sm">
+                                        <span><i class="far fa-comment mr-1"></i>92</span>
+                                        <span><i class="far fa-clock mr-1"></i>2023-10-18</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-3 md:mt-0 md:ml-4 flex flex-col justify-center">
+                                <button id="join-topic-2" class="join-topic-btn bg-primary hover:bg-secondary text-white px-4 py-2 rounded-lg btn-primary-effect" data-topic-id="2">
+                                    <i class="fas fa-plus mr-1"></i> 参与讨论
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 话题列表项3 -->
+                    <div id="topic-3" class="topic-card p-5 border-b border-gray-200">
+                        <div class="flex flex-col md:flex-row">
+                            <div class="flex-1 min-w-0">
+                                <h3 class="text-lg font-bold mb-2 hover:text-primary transition-colors">
+                                    <a href="#" id="topic-title-3" class="topic-title" data-topic-id="3"># 微服务架构实践</a>
+                                </h3>
+                                <p class="text-gray-600 text-sm mb-3">分享微服务架构设计、实现与优化的经验，解决实际项目中的挑战，包括服务拆分、通信、容错、监控等方面的最佳实践。</p>
+                                <div class="flex flex-wrap gap-2 mb-3">
+                                    <span class="tag text-xs text-gray-600 bg-gray-100 px-2 py-1 rounded-full">微服务</span>
+                                    <span class="tag text-xs text-gray-600 bg-gray-100 px-2 py-1 rounded-full">架构设计</span>
+                                    <span class="tag text-xs text-gray-600 bg-gray-100 px-2 py-1 rounded-full">Spring Cloud</span>
+                                    <span class="tag text-xs text-gray-600 bg-gray-100 px-2 py-1 rounded-full">Kubernetes</span>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center">
+                                        <div class="avatar-stack flex -space-x-3">
+                                            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=64&q=80" alt="参与者头像" class="avatar w-6 h-6 rounded-full object-cover border-2 border-white">
+                                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=64&q=80" alt="参与者头像" class="avatar w-6 h-6 rounded-full object-cover border-2 border-white">
+                                            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=64&q=80" alt="参与者头像" class="avatar w-6 h-6 rounded-full object-cover border-2 border-white">
+                                            <div class="avatar w-6 h-6 rounded-full bg-gray-200 flex items-center justify-center text-xs text-gray-600 border-2 border-white">+4</div>
+                                        </div>
+                                        <span class="text-gray-500 text-xs ml-2">732人参与</span>
+                                    </div>
+                                    <div class="flex items-center space-x-3 text-gray-500 text-sm">
+                                        <span><i class="far fa-comment mr-1"></i>78</span>
+                                        <span><i class="far fa-clock mr-1"></i>2023-10-15</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-3 md:mt-0 md:ml-4 flex flex-col justify-center">
+                                <button id="join-topic-3" class="join-topic-btn bg-primary hover:bg-secondary text-white px-4 py-2 rounded-lg btn-primary-effect" data-topic-id="3">
+                                    <i class="fas fa-plus mr-1"></i> 参与讨论
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 话题列表项4 -->
+                    <div id="topic-4" class="topic-card p-5 border-b border-gray-200">
+                        <div class="flex flex-col md:flex-row">
+                            <div class="flex-1 min-w-0">
+                                <h3 class="text-lg font-bold mb-2 hover:text-primary transition-colors">
+                                    <a href="#" id="topic-title-4" class="topic-title" data-topic-id="4"># 移动端跨平台开发技术</a>
+                                </h3>
+                                <p class="text-gray-600 text-sm mb-3">探讨Flutter、React Native、Uni-app等跨平台技术的优劣势，分享实际项目中的应用经验和性能优化技巧。</p>
+                                <div class="flex flex-wrap gap-2 mb-3">
+                                    <span class="tag text-xs text-gray-600 bg-gray-100 px-2 py-1 rounded-full">Flutter</span>
+                                    <span class="tag text-xs text-gray-600 bg-gray-100 px-2 py-1 rounded-full">React Native</span>
+                                    <span class="tag text-xs text-gray-600 bg-gray-100 px-2 py-1 rounded-full">跨平台</span>
+                                    <span class="tag text-xs text-gray-600 bg-gray-100 px-2 py-1 rounded-full">移动开发</span>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center">
+                                        <div class="avatar-stack flex -space-x-3">
+                                            <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=64&q=80" alt="参与者头像" class="avatar w-6 h-6 rounded-full object-cover border-2 border-white">
+                                            <img src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=64&q=80" alt="参与者头像" class="avatar w-6 h-6 rounded-full object-cover border-2 border-white">
+                                            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=64&q=80" alt="参与者头像" class="avatar w-6 h-6 rounded-full object-cover border-2 border-white">
+                                            <div class="avatar w-6 h-6 rounded-full bg-gray-200 flex items-center justify-center text-xs text-gray-600 border-2 border-white">+3</div>
+                                        </div>
+                                        <span class="text-gray-500 text-xs ml-2">615人参与</span>
+                                    </div>
+                                    <div class="flex items-center space-x-3 text-gray-500 text-sm">
+                                        <span><i class="far fa-comment mr-1"></i>64</span>
+                                        <span><i class="far fa-clock mr-1"></i>2023-10-12</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-3 md:mt-0 md:ml-4 flex flex-col justify-center">
+                                <button id="join-topic-4" class="join-topic-btn bg-primary hover:bg-secondary text-white px-4 py-2 rounded-lg btn-primary-effect" data-topic-id="4">
+                                    <i class="fas fa-plus mr-1"></i> 参与讨论
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 话题列表项5 -->
+                    <div id="topic-5" class="topic-card p-5">
+                        <div class="flex flex-col md:flex-row">
+                            <div class="flex-1 min-w-0">
+                                <h3 class="text-lg font-bold mb-2 hover:text-primary transition-colors">
+                                    <a href="#" id="topic-title-5" class="topic-title" data-topic-id="5"># 云原生与DevOps实践</a>
+                                </h3>
+                                <p class="text-gray-600 text-sm mb-3">讨论云原生架构、容器化、CI/CD、自动化测试等DevOps实践，分享企业级应用的云原生转型经验和挑战。</p>
+                                <div class="flex flex-wrap gap-2 mb-3">
+                                    <span class="tag text-xs text-gray-600 bg-gray-100 px-2 py-1 rounded-full">云原生</span>
+                                    <span class="tag text-xs text-gray-600 bg-gray-100 px-2 py-1 rounded-full">DevOps</span>
+                                    <span class="tag text-xs text-gray-600 bg-gray-100 px-2 py-1 rounded-full">Docker</span>
+                                    <span class="tag text-xs text-gray-600 bg-gray-100 px-2 py-1 rounded-full">Kubernetes</span>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center">
+                                        <div class="avatar-stack flex -space-x-3">
+                                            <img src="https://images.unsplash.com/photo-1603415526960-f7e0328c63b1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=64&q=80" alt="参与者头像" class="avatar w-6 h-6 rounded-full object-cover border-2 border-white">
+                                            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=64&q=80" alt="参与者头像" class="avatar w-6 h-6 rounded-full object-cover border-2 border-white">
+                                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=64&q=80" alt="参与者头像" class="avatar w-6 h-6 rounded-full object-cover border-2 border-white">
+                                            <div class="avatar w-6 h-6 rounded-full bg-gray-200 flex items-center justify-center text-xs text-gray-600 border-2 border-white">+2</div>
+                                        </div>
+                                        <span class="text-gray-500 text-xs ml-2">548人参与</span>
+                                    </div>
+                                    <div class="flex items-center space-x-3 text-gray-500 text-sm">
+                                        <span><i class="far fa-comment mr-1"></i>52</span>
+                                        <span><i class="far fa-clock mr-1"></i>2023-10-10</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-3 md:mt-0 md:ml-4 flex flex-col justify-center">
+                                <button id="join-topic-5" class="join-topic-btn bg-primary hover:bg-secondary text-white px-4 py-2 rounded-lg btn-primary-effect" data-topic-id="5">
+                                    <i class="fas fa-plus mr-1"></i> 参与讨论
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 分页 -->
+                <div class="flex justify-center mt-6">
+                    <nav id="pagination" class="flex items-center bg-white rounded-lg shadow-sm p-1">
+                        <a href="#" id="prev-page" class="w-9 h-9 flex items-center justify-center text-gray-500 rounded-lg hover:bg-gray-100">
+                            <i class="fas fa-chevron-left"></i>
+                        </a>
+                        <a href="#" id="page-1" class="w-9 h-9 flex items-center justify-center text-white bg-primary rounded-lg">1</a>
+                        <a href="#" id="page-2" class="w-9 h-9 flex items-center justify-center text-gray-700 rounded-lg hover:bg-gray-100">2</a>
+                        <a href="#" id="page-3" class="w-9 h-9 flex items-center justify-center text-gray-700 rounded-lg hover:bg-gray-100">3</a>
+                        <span class="w-9 h-9 flex items-center justify-center text-gray-500">...</span>
+                        <a href="#" id="page-8" class="w-9 h-9 flex items-center justify-center text-gray-700 rounded-lg hover:bg-gray-100">8</a>
+                        <a href="#" id="next-page" class="w-9 h-9 flex items-center justify-center text-gray-500 rounded-lg hover:bg-gray-100">
+                            <i class="fas fa-chevron-right"></i>
+                        </a>
+                    </nav>
+                </div>
+            </div>
+            
+            <!-- 话题详情视图 - 默认隐藏 -->
+            <div id="topic-detail-view" class="hidden">
+                <!-- 话题详情头部 -->
+                <div class="flex items-center mb-4">
+                    <button id="back-to-topics" class="text-gray-600 hover:text-primary mr-3">
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+                    <h2 class="text-xl font-bold text-gray-800 flex-1">
+                        <span id="detail-topic-title"># 大型语言模型与AI应用</span>
+                    </h2>
+                    <button id="follow-topic" class="text-primary border border-primary px-3 py-1 rounded-lg hover:bg-primary hover:bg-opacity-10 mr-2">
+                        <i class="fas fa-plus mr-1"></i> 关注话题
+                    </button>
+                    <button id="share-topic" class="text-gray-600 hover:text-primary">
+                        <i class="fas fa-share-alt"></i>
+                    </button>
+                </div>
+                
+                <!-- 话题详情内容 -->
+                <div class="bg-white rounded-xl shadow-card p-5 mb-6">
+                    <div id="topic-description" class="text-gray-700 mb-4">
+                        讨论大型语言模型(LLM)的发展趋势、应用场景及实践经验，分享最新的模型训练、微调和部署技术。欢迎分享您在AI领域的研究成果、实践经验或遇到的挑战。
+                    </div>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="tag text-xs text-gray-600 bg-gray-100 px-2 py-1 rounded-full">LLM</span>
+                        <span class="tag text-xs text-gray-600 bg-gray-100 px-2 py-1 rounded-full">AI</span>
+                        <span class="tag text-xs text-gray-600 bg-gray-100 px-2 py-1 rounded-full">GPT</span>
+                        <span class="tag text-xs text-gray-600 bg-gray-100 px-2 py-1 rounded-full">人工智能</span>
+                    </div>
+                    <div class="flex items-center justify-between text-sm text-gray-500">
+                        <div class="flex items-center">
+                            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=64&q=80" alt="创建者头像" class="w-6 h-6 rounded-full object-cover">
+                            <span class="ml-2">Sarah Lin 创建于 2023-10-20</span>
+                        </div>
+                        <div class="flex items-center">
+                            <span><i class="fas fa-users mr-1"></i>1.2k人参与</span>
+                            <span class="mx-3">|</span>
+                            <span><i class="far fa-comment mr-1"></i>128条讨论</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 相关文章 -->
+                <div class="mb-6">
+                    <h3 class="text-lg font-bold text-gray-800 mb-3">相关文章</h3>
+                    <div class="bg-white rounded-xl shadow-card overflow-hidden">
+                        <!-- 相关文章1 -->
+                        <div class="discussion-card p-4">
+                            <div class="flex flex-col md:flex-row">
+                                <div class="flex-1 min-w-0">
+                                    <h4 class="text-base font-bold mb-1 hover:text-primary transition-colors">
+                                        <a href="P-ARTICLE_DETAIL.html?article_id=1" id="related-article-1">LLM大模型微调技术实战：从理论到实践</a>
+                                    </h4>
+                                    <p class="text-gray-600 text-sm mb-2 line-clamp-2">详细介绍了大型语言模型(LLM)的微调技术，包括LoRA、QLoRA等低资源微调方法，以及如何在消费级GPU上进行有效的模型定制训练。</p>
+                                    <div class="flex items-center justify-between">
+                                        <div class="flex items-center">
+                                            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=64&q=80" alt="作者头像" class="w-5 h-5 rounded-full object-cover">
+                                            <span class="text-gray-700 text-xs ml-2">Sarah Lin</span>
+                                        </div>
+                                        <div class="flex items-center space-x-3 text-gray-500 text-xs">
+                                            <span><i class="far fa-eye mr-1"></i>3.1k</span>
+                                            <span><i class="far fa-thumbs-up mr-1"></i>458</span>
+                                            <span><i class="far fa-comment mr-1"></i>72</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 相关文章2 -->
+                        <div class="discussion-card p-4">
+                            <div class="flex flex-col md:flex-row">
+                                <div class="flex-1 min-w-0">
+                                    <h4 class="text-base font-bold mb-1 hover:text-primary transition-colors">
+                                        <a href="P-ARTICLE_DETAIL.html?article_id=2" id="related-article-2">大型语言模型在企业应用中的落地实践</a>
+                                    </h4>
+                                    <p class="text-gray-600 text-sm mb-2 line-clamp-2">探讨了大型语言模型在企业级应用中的实际落地案例，包括客服机器人、内容生成、知识管理等场景，以及如何解决数据安全、成本控制等问题。</p>
+                                    <div class="flex items-center justify-between">
+                                        <div class="flex items-center">
+                                            <img src="https://images.unsplash.com/photo-1603415526960-f7e0328c63b1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=64&q=80" alt="作者头像" class="w-5 h-5 rounded-full object-cover">
+                                            <span class="text-gray-700 text-xs ml-2">Michael Wu</span>
+                                        </div>
+                                        <div class="flex items-center space-x-3 text-gray-500 text-xs">
+                                            <span><i class="far fa-eye mr-1"></i>2.8k</span>
+                                            <span><i class="far fa-thumbs-up mr-1"></i>386</span>
+                                            <span><i class="far fa-comment mr-1"></i>58</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 相关文章3 -->
+                        <div class="discussion-card p-4">
+                            <div class="flex flex-col md:flex-row">
+                                <div class="flex-1 min-w-0">
+                                    <h4 class="text-base font-bold mb-1 hover:text-primary transition-colors">
+                                        <a href="P-ARTICLE_DETAIL.html?article_id=3" id="related-article-3">开源LLM模型对比：Llama 2 vs Falcon vs MPT</a>
+                                    </h4>
+                                    <p class="text-gray-600 text-sm mb-2 line-clamp-2">全面对比了目前主流的开源大语言模型，包括性能、参数规模、训练数据、部署要求等方面，帮助开发者选择适合自己项目的模型。</p>
+                                    <div class="flex items-center justify-between">
+                                        <div class="flex items-center">
+                                            <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=64&q=80" alt="作者头像" class="w-5 h-5 rounded-full object-cover">
+                                            <span class="text-gray-700 text-xs ml-2">Alex Zhang</span>
+                                        </div>
+                                        <div class="flex items-center space-x-3 text-gray-500 text-xs">
+                                            <span><i class="far fa-eye mr-1"></i>2.5k</span>
+                                            <span><i class="far fa-thumbs-up mr-1"></i>342</span>
+                                            <span><i class="far fa-comment mr-1"></i>45</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 讨论区 -->
+                <div>
+                    <div class="flex items-center justify-between mb-3">
+                        <h3 class="text-lg font-bold text-gray-800">讨论区</h3>
+                        <div class="flex items-center space-x-3">
+                            <select id="discussion-sort" class="text-sm border border-gray-300 rounded-lg px-3 py-1.5 bg-white focus:outline-none focus:ring-2 focus:ring-primary">
+                                <option value="latest">最新</option>
+                                <option value="hot">热门</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <!-- 发表评论 -->
+                    <div class="bg-white rounded-xl shadow-card p-4 mb-4">
+                        <div class="flex">
+                            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=256&q=80" alt="用户头像" class="w-10 h-10 rounded-full object-cover">
+                            <div class="ml-3 flex-1">
+                                <textarea id="comment-input" class="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-primary resize-none" rows="3" placeholder="分享你的观点和经验..."></textarea>
+                                <div class="flex justify-end mt-2">
+                                    <button id="post-comment" class="bg-primary hover:bg-secondary text-white px-4 py-2 rounded-lg btn-primary-effect">
+                                        发表评论
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 评论列表 -->
+                    <div class="bg-white rounded-xl shadow-card overflow-hidden">
+                        <!-- 评论1 -->
+                        <div id="comment-1" class="discussion-card p-4">
+                            <div class="flex">
+                                <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=64&q=80" alt="评论者头像" class="w-10 h-10 rounded-full object-cover">
+                                <div class="ml-3 flex-1">
+                                    <div class="flex items-center justify-between">
+                                        <div class="flex items-center">
+                                            <h4 class="font-medium text-gray-800">Sarah Lin</h4>
+                                            <span class="text-xs text-gray-500 ml-2">2023-10-22 14:35</span>
+                                        </div>
+                                        <div class="flex items-center space-x-2">
+                                            <button id="like-comment-1" class="text-gray-500 hover:text-primary">
+                                                <i class="far fa-thumbs-up mr-1"></i>45
+                                            </button>
+                                            <button id="reply-comment-1" class="text-gray-500 hover:text-primary">
+                                                <i class="far fa-comment mr-1"></i>回复
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="text-gray-700 mt-2">
+                                        最近在尝试使用LoRA方法微调Llama 2模型，在消费级GPU上也能取得不错的效果。有没有人尝试过在更小的参数规模（7B或13B）上做领域适应的微调？想了解一下大家的经验和最佳实践。
+                                    </div>
+                                    
+                                    <!-- 回复区域 -->
+                                    <div class="mt-3 pl-4 border-l-2 border-gray-200">
+                                        <!-- 回复1 -->
+                                        <div id="reply-1-1" class="mb-3">
+                                            <div class="flex items-center justify-between">
+                                                <div class="flex items-center">
+                                                    <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=64&q=80" alt="回复者头像" class="w-6 h-6 rounded-full object-cover">
+                                                    <h5 class="font-medium text-gray-800 text-sm ml-2">Alex Zhang</h5>
+                                                    <span class="text-xs text-gray-500 ml-2">2023-10-22 15:10</span>
+                                                </div>
+                                                <div class="flex items-center space-x-2">
+                                                    <button id="like-reply-1-1" class="text-gray-500 hover:text-primary text-xs">
+                                                        <i class="far fa-thumbs-up mr-1"></i>12
+                                                    </button>
+                                                    <button id="reply-to-reply-1-1" class="text-gray-500 hover:text-primary text-xs">
+                                                        <i class="far fa-comment mr-1"></i>回复
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="text-gray-700 text-sm mt-1">
+                                                我最近在7B模型上做了医疗领域的微调，使用QLoRA方法，4位量化后在单张RTX 3090上就能跑。关键是准备高质量的领域数据，我发现指令微调比继续预训练效果更好，特别是对于特定任务。
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- 回复2 -->
+                                        <div id="reply-1-2" class="mb-3">
+                                            <div class="flex items-center justify-between">
+                                                <div class="flex items-center">
+                                                    <img src="https://images.unsplash.com/photo-1603415526960-f7e0328c63b1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=64&q=80" alt="回复者头像" class="w-6 h-6 rounded-full object-cover">
+                                                    <h5 class="font-medium text-gray-800 text-sm ml-2">Michael Wu</h5>
+                                                    <span class="text-xs text-gray-500 ml-2">2023-10-22 16:25</span>
+                                                </div>
+                                                <div class="flex items-center space-x-2">
+                                                    <button id="like-reply-1-2" class="text-gray-500 hover:text-primary text-xs">
+                                                        <i class="far fa-thumbs-up mr-1"></i>8
+                                                    </button>
+                                                    <button id="reply-to-reply-1-2" class="text-gray-500 hover:text-primary text-xs">
+                                                        <i class="far fa-comment mr-1"></i>回复
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="text-gray-700 text-sm mt-1">
+                                                补充一点，如果是做垂直领域的微调，建议先用领域数据做继续预训练，再用任务数据做指令微调，这样效果会更好。我们在金融领域试过这种方法，效果提升明显。
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- 回复输入框 - 默认隐藏 -->
+                                        <div id="reply-input-1" class="hidden mt-2">
+                                            <div class="flex">
+                                                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=256&q=80" alt="用户头像" class="w-6 h-6 rounded-full object-cover">
+                                                <div class="ml-2 flex-1">
+                                                    <textarea class="w-full border border-gray-300 rounded-lg p-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary resize-none" rows="2" placeholder="回复 Sarah Lin..."></textarea>
+                                                    <div class="flex justify-end mt-1">
+                                                        <button id="cancel-reply-1" class="text-gray-500 hover:text-gray-700 text-xs mr-2">
+                                                            取消
+                                                        </button>
+                                                        <button id="submit-reply-1" class="bg-primary hover:bg-secondary text-white px-3 py-1 rounded-lg text-xs">
+                                                            回复
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 评论2 -->
+                        <div id="comment-2" class="discussion-card p-4">
+                            <div class="flex">
+                                <img src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=64&q=80" alt="评论者头像" class="w-10 h-10 rounded-full object-cover">
+                                <div class="ml-3 flex-1">
+                                    <div class="flex items-center justify-between">
+                                        <div class="flex items-center">
+                                            <h4 class="font-medium text-gray-800">David Chen</h4>
+                                            <span class="text-xs text-gray-500 ml-2">2023-10-21 09:15</span>
+                                        </div>
+                                        <div class="flex items-center space-x-2">
+                                            <button id="like-comment-2" class="text-gray-500 hover:text-primary">
+                                                <i class="far fa-thumbs-up mr-1"></i>38
+                                            </button>
+                                            <button id="reply-comment-2" class="text-gray-500 hover:text-primary">
+                                                <i class="far fa-comment mr-1"></i>回复
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="text-gray-700 mt-2">
+                                        大家对于AI Agent的发展有什么看法？我觉得LLM+Agent是未来一个重要方向，特别是结合工具使用和环境交互的能力，可以大大扩展LLM的应用场景。最近看到一些开源项目如AutoGPT、BabyAGI等，都在这个方向上做探索。
+                                    </div>
+                                    
+                                    <!-- 回复区域 -->
+                                    <div class="mt-3 pl-4 border-l-2 border-gray-200">
+                                        <!-- 回复1 -->
+                                        <div id="reply-2-1" class="mb-3">
+                                            <div class="flex items-center justify-between">
+                                                <div class="flex items-center">
+                                                    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=64&q=80" alt="回复者头像" class="w-6 h-6 rounded-full object-cover">
+                                                    <h5 class="font-medium text-gray-800 text-sm ml-2">Jason Chen</h5>
+                                                    <span class="text-xs text-gray-500 ml-2">2023-10-21 10:30</span>
+                                                </div>
+                                                <div class="flex items-center space-x-2">
+                                                    <button id="like-reply-2-1" class="text-gray-500 hover:text-primary text-xs">
+                                                        <i class="far fa-thumbs-up mr-1"></i>15
+                                                    </button>
+                                                    <button id="reply-to-reply-2-1" class="text-gray-500 hover:text-primary text-xs">
+                                                        <i class="far fa-comment mr-1"></i>回复
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="text-gray-700 text-sm mt-1">
+                                                完全同意，Agent是LLM走向实际应用的关键。不过目前还存在一些挑战，比如如何让Agent更可靠地执行复杂任务，如何处理长期规划和记忆等。我认为ReAct和Chain-of-Thought等提示工程技术在这方面很有潜力。
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- 回复输入框 - 默认隐藏 -->
+                                        <div id="reply-input-2" class="hidden mt-2">
+                                            <div class="flex">
+                                                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=256&q=80" alt="用户头像" class="w-6 h-6 rounded-full object-cover">
+                                                <div class="ml-2 flex-1">
+                                                    <textarea class="w-full border border-gray-300 rounded-lg p-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary resize-none" rows="2" placeholder="回复 David Chen..."></textarea>
+                                                    <div class="flex justify-end mt-1">
+                                                        <button id="cancel-reply-2" class="text-gray-500 hover:text-gray-700 text-xs mr-2">
+                                                            取消
+                                                        </button>
+                                                        <button id="submit-reply-2" class="bg-primary hover:bg-secondary text-white px-3 py-1 rounded-lg text-xs">
+                                                            回复
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 评论3 -->
+                        <div id="comment-3" class="discussion-card p-4">
+                            <div class="flex">
+                                <img src="https://images.unsplash.com/photo-1607746882042-944635dfe10e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=64&q=80" alt="评论者头像" class="w-10 h-10 rounded-full object-cover">
+                                <div class="ml-3 flex-1">
+                                    <div class="flex items-center justify-between">
+                                        <div class="flex items-center">
+                                            <h4 class="font-medium text-gray-800">Emily Wang</h4>
+                                            <span class="text-xs text-gray-500 ml-2">2023-10-20 16:45</span>
+                                        </div>
+                                        <div class="flex items-center space-x-2">
+                                            <button id="like-comment-3" class="text-gray-500 hover:text-primary">
+                                                <i class="far fa-thumbs-up mr-1"></i>27
+                                            </button>
+                                            <button id="reply-comment-3" class="text-gray-500 hover:text-primary">
+                                                <i class="far fa-comment mr-1"></i>回复
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="text-gray-700 mt-2">
+                                        分享一个我们团队最近在做的项目：使用LLM构建知识库问答系统。我们尝试了向量数据库+检索增强生成(RAG)的方案，效果比直接使用LLM好很多，特别是在处理专业领域知识时。有人有类似经验吗？我们现在遇到的主要问题是如何提高检索的精度和相关性。
+                                    </div>
+                                    
+                                    <!-- 回复输入框 - 默认隐藏 -->
+                                    <div id="reply-input-3" class="hidden mt-3 pl-4 border-l-2 border-gray-200">
+                                        <div class="flex">
+                                            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=256&q=80" alt="用户头像" class="w-6 h-6 rounded-full object-cover">
+                                            <div class="ml-2 flex-1">
+                                                <textarea class="w-full border border-gray-300 rounded-lg p-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary resize-none" rows="2" placeholder="回复 Emily Wang..."></textarea>
+                                                <div class="flex justify-end mt-1">
+                                                    <button id="cancel-reply-3" class="text-gray-500 hover:text-gray-700 text-xs mr-2">
+                                                        取消
+                                                    </button>
+                                                    <button id="submit-reply-3" class="bg-primary hover:bg-secondary text-white px-3 py-1 rounded-lg text-xs">
+                                                        回复
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 分页 -->
+                    <div class="flex justify-center mt-6">
+                        <nav id="comment-pagination" class="flex items-center bg-white rounded-lg shadow-sm p-1">
+                            <a href="#" id="comment-prev-page" class="w-9 h-9 flex items-center justify-center text-gray-500 rounded-lg hover:bg-gray-100">
+                                <i class="fas fa-chevron-left"></i>
+                            </a>
+                            <a href="#" id="comment-page-1" class="w-9 h-9 flex items-center justify-center text-white bg-primary rounded-lg">1</a>
+                            <a href="#" id="comment-page-2" class="w-9 h-9 flex items-center justify-center text-gray-700 rounded-lg hover:bg-gray-100">2</a>
+                            <a href="#" id="comment-page-3" class="w-9 h-9 flex items-center justify-center text-gray-700 rounded-lg hover:bg-gray-100">3</a>
+                            <span class="w-9 h-9 flex items-center justify-center text-gray-500">...</span>
+                            <a href="#" id="comment-page-5" class="w-9 h-9 flex items-center justify-center text-gray-700 rounded-lg hover:bg-gray-100">5</a>
+                            <a href="#" id="comment-next-page" class="w-9 h-9 flex items-center justify-center text-gray-500 rounded-lg hover:bg-gray-100">
+                                <i class="fas fa-chevron-right"></i>
+                            </a>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 右侧面板 - 仅在大屏幕(≥1440px)显示 -->
+        <aside id="right-sidebar" class="hidden xl:block w-72 ml-6 flex-shrink-0">
+            <!-- 热门话题 -->
+            <div class="bg-white rounded-xl shadow-card p-4 mb-6 sticky top-20">
+                <h3 class="text-gray-800 font-bold mb-4 flex items-center">
+                    <i class="fas fa-fire-flame-curved text-danger mr-2"></i>
+                    热门话题
+                </h3>
+                <ul id="hot-topics-sidebar" class="space-y-3">
+                    <li class="bg-gray-50 rounded-lg p-3 hover:bg-gray-100 transition-colors">
+                        <a href="#" id="hot-topic-1" class="block" data-topic-id="1">
+                            <h4 class="text-gray-800 font-medium mb-1"># 大型语言模型与AI应用</h4>
+                            <p class="text-gray-600 text-sm mb-2 line-clamp-2">讨论大型语言模型(LLM)的发展趋势、应用场景及实践经验</p>
+                            <div class="flex items-center justify-between text-xs">
+                                <span class="text-gray-500"><i class="fas fa-users mr-1"></i>1.2k人参与</span>
+                                <span class="text-primary">进行中</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="bg-gray-50 rounded-lg p-3 hover:bg-gray-100 transition-colors">
+                        <a href="#" id="hot-topic-2" class="block" data-topic-id="2">
+                            <h4 class="text-gray-800 font-medium mb-1"># 前端框架选型对比</h4>
+                            <p class="text-gray-600 text-sm mb-2 line-clamp-2">React vs Vue vs Angular vs Svelte，各框架优缺点与适用场景分析</p>
+                            <div class="flex items-center justify-between text-xs">
+                                <span class="text-gray-500"><i class="fas fa-users mr-1"></i>856人参与</span>
+                                <span class="text-primary">进行中</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="bg-gray-50 rounded-lg p-3 hover:bg-gray-100 transition-colors">
+                        <a href="#" id="hot-topic-3" class="block" data-topic-id="3">
+                            <h4 class="text-gray-800 font-medium mb-1"># 微服务架构实践</h4>
+                            <p class="text-gray-600 text-sm mb-2 line-clamp-2">分享微服务架构设计、实现与优化的经验，解决实际项目中的挑战</p>
+                            <div class="flex items-center justify-between text-xs">
+                                <span class="text-gray-500"><i class="fas fa-users mr-1"></i>732人参与</span>
+                                <span class="text-primary">进行中</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="bg-gray-50 rounded-lg p-3 hover:bg-gray-100 transition-colors">
+                        <a href="#" id="hot-topic-4" class="block" data-topic-id="4">
+                            <h4 class="text-gray-800 font-medium mb-1"># 移动端跨平台开发技术</h4>
+                            <p class="text-gray-600 text-sm mb-2 line-clamp-2">探讨Flutter、React Native、Uni-app等跨平台技术的优劣势</p>
+                            <div class="flex items-center justify-between text-xs">
+                                <span class="text-gray-500"><i class="fas fa-users mr-1"></i>615人参与</span>
+                                <span class="text-primary">进行中</span>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- 活跃参与者 -->
+            <div class="bg-white rounded-xl shadow-card p-4">
+                <h3 class="text-gray-800 font-bold mb-4 flex items-center">
+                    <i class="fas fa-user-group text-info mr-2"></i>
+                    活跃参与者
+                </h3>
+                <ul id="active-participants" class="space-y-4">
+                    <li class="flex items-center">
+                        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=64&q=80" alt="参与者头像" class="w-10 h-10 rounded-full object-cover">
+                        <div class="ml-3 flex-1 min-w-0">
+                            <h4 class="text-gray-800 font-medium">Sarah Lin</h4>
+                            <p class="text-gray-500 text-xs">人工智能 | 38篇文章</p>
+                        </div>
+                        <button id="follow-user-1" class="text-primary text-sm font-medium hover:text-secondary">
+                            <i class="fas fa-plus mr-1"></i>关注
+                        </button>
+                    </li>
+                    <li class="flex items-center">
+                        <img src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=64&q=80" alt="参与者头像" class="w-10 h-10 rounded-full object-cover">
+                        <div class="ml-3 flex-1 min-w-0">
+                            <h4 class="text-gray-800 font-medium">David Chen</h4>
+                            <p class="text-gray-500 text-xs">前端开发 | 42篇文章</p>
+                        </div>
+                        <button id="follow-user-2" class="text-primary text-sm font-medium hover:text-secondary">
+                            <i class="fas fa-plus mr-1"></i>关注
+                        </button>
+                    </li>
+                    <li class="flex items-center">
+                        <img src="https://images.unsplash.com/photo-1603415526960-f7e0328c63b1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=64&q=80" alt="参与者头像" class="w-10 h-10 rounded-full object-cover">
+                        <div class="ml-3 flex-1 min-w-0">
+                            <h4 class="text-gray-800 font-medium">Michael Wu</h4>
+                            <p class="text-gray-500 text-xs">后端开发 | 35篇文章</p>
+                        </div>
+                        <button id="follow-user-3" class="text-primary text-sm font-medium hover:text-secondary">
+                            <i class="fas fa-plus mr-1"></i>关注
+                        </button>
+                    </li>
+                    <li class="flex items-center">
+                        <img src="https://images.unsplash.com/photo-1607746882042-944635dfe10e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=64&q=80" alt="参与者头像" class="w-10 h-10 rounded-full object-cover">
+                        <div class="ml-3 flex-1 min-w-0">
+                            <h4 class="text-gray-800 font-medium">Emily Wang</h4>
+                            <p class="text-gray-500 text-xs">大数据 | 28篇文章</p>
+                        </div>
+                        <button id="follow-user-4" class="text-primary text-sm font-medium hover:text-secondary">
+                            <i class="fas fa-plus mr-1"></i>关注
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </aside>
+    </main>
+    
+    <!-- 底部版权信息 -->
+    <footer id="main-footer" class="bg-white py-6 mt-8">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <div class="flex items-center justify-center md:justify-start">
+                        <span class="text-primary text-xl font-bold mr-1">lec</span>
+                        <span class="text-gray-800 text-xl font-bold">tech</span>
+                    </div>
+                    <p class="text-gray-500 text-sm mt-2 text-center md:text-left">专注于技术知识分享、交流与成长的论坛平台</p>
+                </div>
+                <div class="flex space-x-8">
+                    <div>
+                        <h4 class="text-gray-800 font-medium mb-2">关于我们</h4>
+                        <ul class="space-y-1">
+                            <li><a href="#" class="text-gray-500 text-sm hover:text-primary">平台介绍</a></li>
+                            <li><a href="#" class="text-gray-500 text-sm hover:text-primary">联系我们</a></li>
+                            <li><a href="#" class="text-gray-500 text-sm hover:text-primary">加入我们</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-gray-800 font-medium mb-2">帮助中心</h4>
+                        <ul class="space-y-1">
+                            <li><a href="#" class="text-gray-500 text-sm hover:text-primary">常见问题</a></li>
+                            <li><a href="#" class="text-gray-500 text-sm hover:text-primary">用户指南</a></li>
+                            <li><a href="#" class="text-gray-500 text-sm hover:text-primary">内容规范</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-6 pt-6 border-t border-gray-200 text-center">
+                <p class="text-gray-500 text-sm">© 2023 lectech. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 创建话题模态框 - 默认隐藏 -->
+    <div id="create-topic-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-xl shadow-lg w-full max-w-lg mx-4 p-6">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-xl font-bold text-gray-800">创建新话题</h3>
+                <button id="close-modal" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form id="create-topic-form">
+                <div class="mb-4">
+                    <label for="topic-title-input" class="block text-gray-700 font-medium mb-2">话题标题</label>
+                    <input type="text" id="topic-title-input" class="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-primary" placeholder="输入话题标题，以#开头">
+                </div>
+                <div class="mb-4">
+                    <label for="topic-description-input" class="block text-gray-700 font-medium mb-2">话题描述</label>
+                    <textarea id="topic-description-input" class="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-primary resize-none" rows="4" placeholder="详细描述话题内容和讨论方向"></textarea>
+                </div>
+                <div class="mb-4">
+                    <label for="topic-tags-input" class="block text-gray-700 font-medium mb-2">话题标签</label>
+                    <input type="text" id="topic-tags-input" class="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-primary" placeholder="输入标签，用逗号分隔">
+                </div>
+                <div class="mb-4">
+                    <label for="topic-category-select" class="block text-gray-700 font-medium mb-2">话题分类</label>
+                    <select id="topic-category-select" class="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-primary">
+                        <option value="">选择分类</option>
+                        <option value="frontend">前端开发</option>
+                        <option value="backend">后端开发</option>
+                        <option value="mobile">移动开发</option>
+                        <option value="ai">人工智能</option>
+                        <option value="bigdata">大数据</option>
+                        <option value="cloud">云计算</option>
+                        <option value="security">网络安全</option>
+                    </select>
+                </div>
+                <div class="flex justify-end">
+                    <button type="button" id="cancel-create-topic" class="text-gray-600 hover:text-gray-800 mr-3">
+                        取消
+                    </button>
+                    <button type="submit" id="submit-create-topic" class="bg-primary hover:bg-secondary text-white px-4 py-2 rounded-lg btn-primary-effect">
+                        创建话题
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 获取URL参数
+            function getUrlParams() {
+                const params = {};
+                const queryString = window.location.search.substring(1);
+                const urlParams = new URLSearchParams(queryString);
+                
+                for(const [key, value] of urlParams.entries()) {
+                    params[key] = value;
+                }
+                return params;
+            }
+            
+            // 获取URL参数
+            const params = getUrlParams();
+            
+            // 如果有话题ID参数，显示话题详情
+            if(params.topic_id) {
+                document.querySelector('#topics-list-view').classList.add('hidden');
+                document.querySelector('#topic-detail-view').classList.remove('hidden');
+                
+                // 这里可以根据topic_id加载具体话题数据
+                // 在实际应用中，这里会调用API获取话题详情
+                console.log('加载话题ID:', params.topic_id);
+            }
+            
+            // 顶部导航链接
+            document.querySelector('#logo').addEventListener('click', function(e) {
+                e.preventDefault();
+                window.location.href = 'P-HOME.html';
+            });
+            
+            // 主导航菜单
+            document.querySelectorAll('#main-nav a').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    window.location.href = this.getAttribute('href');
+                });
+            });
+            
+            // 搜索功能
+            document.querySelector('#search-input').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    const keyword = this.value.trim();
+                    if (keyword) {
+                        window.location.href = `P-SEARCH_RESULT.html?keyword=${encodeURIComponent(keyword)}`;
+                    }
+                }
+            });
+            
+            // 登录/注册按钮
+            document.querySelectorAll('#auth-buttons a').forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    window.location.href = this.getAttribute('href');
+                });
+            });
+            
+            // 左侧菜单筛选
+            document.querySelectorAll('#topics-filter-list a').forEach(filter => {
+                filter.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    // 移除所有筛选项的激活状态
+                    document.querySelectorAll('#topics-filter-list a').forEach(item => {
+                        item.classList.remove('bg-primary', 'bg-opacity-10', 'text-primary');
+                        item.classList.add('text-gray-600', 'hover:bg-gray-100');
+                    });
+                    
+                    // 设置当前筛选项为激活状态
+                    this.classList.remove('text-gray-600', 'hover:bg-gray-100');
+                    this.classList.add('bg-primary', 'bg-opacity-10', 'text-primary');
+                    
+                    // 这里可以根据筛选条件加载话题列表
+                    console.log('筛选话题:', this.id);
+                });
+            });
+            
+            // 话题分类筛选
+            document.querySelectorAll('#topic-categories-list a').forEach(category => {
+                category.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    // 移除所有分类的激活状态
+                    document.querySelectorAll('#topic-categories-list a').forEach(item => {
+                        item.classList.remove('bg-primary', 'bg-opacity-10', 'text-primary');
+                        item.classList.add('text-gray-600', 'hover:bg-gray-100');
+                    });
+                    
+                    // 设置当前分类为激活状态
+                    this.classList.remove('text-gray-600', 'hover:bg-gray-100');
+                    this.classList.add('bg-primary', 'bg-opacity-10', 'text-primary');
+                    
+                    // 这里可以根据分类加载话题列表
+                    console.log('分类筛选:', this.id);
+                });
+            });
+            
+            // 排序方式切换
+            document.querySelector('#sort-hot').addEventListener('click', function() {
+                document.querySelector('#sort-hot').classList.add('text-primary', 'bg-primary', 'bg-opacity-10');
+                document.querySelector('#sort-hot').classList.remove('text-gray-600');
+                document.querySelector('#sort-new').classList.remove('text-primary', 'bg-primary', 'bg-opacity-10');
+                document.querySelector('#sort-new').classList.add('text-gray-600');
+                
+                // 这里可以根据排序方式加载话题列表
+                console.log('按热门排序');
+            });
+            
+            document.querySelector('#sort-new').addEventListener('click', function() {
+                document.querySelector('#sort-new').classList.add('text-primary', 'bg-primary', 'bg-opacity-10');
+                document.querySelector('#sort-new').classList.remove('text-gray-600');
+                document.querySelector('#sort-hot').classList.remove('text-primary', 'bg-primary', 'bg-opacity-10');
+                document.querySelector('#sort-hot').classList.add('text-gray-600');
+                
+                // 这里可以根据排序方式加载话题列表
+                console.log('按最新排序');
+            });
+            
+            // 创建话题按钮
+            document.querySelector('#create-topic-btn').addEventListener('click', function() {
+                document.querySelector('#create-topic-modal').classList.remove('hidden');
+            });
+            
+            // 关闭创建话题模态框
+            document.querySelector('#close-modal').addEventListener('click', function() {
+                document.querySelector('#create-topic-modal').classList.add('hidden');
+            });
+            
+            document.querySelector('#cancel-create-topic').addEventListener('click', function() {
+                document.querySelector('#create-topic-modal').classList.add('hidden');
+            });
+            
+            // 提交创建话题表单
+            document.querySelector('#create-topic-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const title = document.querySelector('#topic-title-input').value;
+                const description = document.querySelector('#topic-description-input').value;
+                const tags = document.querySelector('#topic-tags-input').value;
+                const category = document.querySelector('#topic-category-select').value;
+                
+                // 这里可以提交表单数据创建话题
+                console.log('创建话题:', { title, description, tags, category });
+                
+                // 关闭模态框
+                document.querySelector('#create-topic-modal').classList.add('hidden');
+                
+                // 显示成功提示或跳转到新创建的话题
+                alert('话题创建成功！');
+            });
+            
+            // 话题列表项点击
+            document.querySelectorAll('.topic-title').forEach(title => {
+                title.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const topicId = this.getAttribute('data-topic-id');
+                    window.location.href = `P-TOPIC_DISCUSSION.html?topic_id=${topicId}`;
+                });
+            });
+            
+            // 参与讨论按钮
+            document.querySelectorAll('.join-topic-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    const topicId = this.getAttribute('data-topic-id');
+                    window.location.href = `P-TOPIC_DISCUSSION.html?topic_id=${topicId}`;
+                });
+            });
+            
+            // 分页功能
+            document.querySelectorAll('#pagination a').forEach(page => {
+                page.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    // 这里可以根据页码加载话题列表
+                    console.log('切换到页码:', this.textContent);
+                });
+            });
+            
+            // 话题详情页返回按钮
+            document.querySelector('#back-to-topics').addEventListener('click', function() {
+                window.location.href = 'P-TOPIC_DISCUSSION.html';
+            });
+            
+            // 关注话题按钮
+            document.querySelector('#follow-topic').addEventListener('click', function() {
+                if (this.classList.contains('text-primary')) {
+                    this.innerHTML = '<i class="fas fa-check mr-1"></i> 已关注';
+                    this.classList.remove('text-primary', 'border-primary', 'hover:bg-primary', 'hover:bg-opacity-10');
+                    this.classList.add('text-tertiary', 'border-tertiary', 'hover:bg-tertiary', 'hover:bg-opacity-10');
+                } else {
+                    this.innerHTML = '<i class="fas fa-plus mr-1"></i> 关注话题';
+                    this.classList.remove('text-tertiary', 'border-tertiary', 'hover:bg-tertiary', 'hover:bg-opacity-10');
+                    this.classList.add('text-primary', 'border-primary', 'hover:bg-primary', 'hover:bg-opacity-10');
+                }
+            });
+            
+            // 分享话题按钮
+            document.querySelector('#share-topic').addEventListener('click', function() {
+                // 这里可以实现分享功能
+                console.log('分享话题');
+                alert('分享功能待实现');
+            });
+            
+            // 相关文章点击
+            document.querySelectorAll('[id^="related-article-"]').forEach(article => {
+                article.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const href = this.getAttribute('href');
+                    window.location.href = href;
+                });
+            });
+            
+            // 讨论区排序
+            document.querySelector('#discussion-sort').addEventListener('change', function() {
+                // 这里可以根据排序方式加载评论
+                console.log('评论排序:', this.value);
+            });
+            
+            // 发表评论
+            document.querySelector('#post-comment').addEventListener('click', function() {
+                const commentText = document.querySelector('#comment-input').value.trim();
+                if (commentText) {
+                    // 这里可以提交评论
+                    console.log('发表评论:', commentText);
+                    document.querySelector('#comment-input').value = '';
+                    alert('评论发表成功！');
+                } else {
+                    alert('评论内容不能为空！');
+                }
+            });
+            
+            // 评论点赞
+            document.querySelectorAll('[id^="like-comment-"]').forEach(button => {
+                button.addEventListener('click', function() {
+                    // 这里可以实现点赞功能
+                    console.log('点赞评论:', this.id);
+                    
+                    // 切换点赞状态
+                    if (this.classList.contains('text-primary')) {
+                        this.classList.remove('text-primary');
+                        this.classList.add('text-gray-500');
+                    } else {
+                        this.classList.remove('text-gray-500');
+                        this.classList.add('text-primary');
+                    }
+                });
+            });
+            
+            // 回复评论
+            document.querySelectorAll('[id^="reply-comment-"]').forEach(button => {
+                button.addEventListener('click', function() {
+                    const commentId = this.id.split('-')[2];
+                    const replyInputId = `reply-input-${commentId}`;
+                    
+                    // 显示回复输入框
+                    document.querySelector(`#${replyInputId}`).classList.toggle('hidden');
+                });
+            });
+            
+            // 取消回复
+            document.querySelectorAll('[id^="cancel-reply-"]').forEach(button => {
+                button.addEventListener('click', function() {
+                    const commentId = this.id.split('-')[2];
+                    const replyInputId = `reply-input-${commentId}`;
+                    
+                    // 隐藏回复输入框
+                    document.querySelector(`#${replyInputId}`).classList.add('hidden');
+                });
+            });
+            
+            // 提交回复
+            document.querySelectorAll('[id^="submit-reply-"]').forEach(button => {
+                button.addEventListener('click', function() {
+                    const commentId = this.id.split('-')[2];
+                    const replyInputId = `reply-input-${commentId}`;
+                    const replyText = document.querySelector(`#${replyInputId} textarea`).value.trim();
+                    
+                    if (replyText) {
+                        // 这里可以提交回复
+                        console.log('提交回复:', { commentId, replyText });
+                        
+                        // 隐藏回复输入框
+                        document.querySelector(`#${replyInputId}`).classList.add('hidden');
+                        document.querySelector(`#${replyInputId} textarea`).value = '';
+                        
+                        alert('回复发表成功！');
+                    } else {
+                        alert('回复内容不能为空！');
+                    }
+                });
+            });
+            
+            // 回复的点赞
+            document.querySelectorAll('[id^="like-reply-"]').forEach(button => {
+                button.addEventListener('click', function() {
+                    // 这里可以实现点赞功能
+                    console.log('点赞回复:', this.id);
+                    
+                    // 切换点赞状态
+                    if (this.classList.contains('text-primary')) {
+                        this.classList.remove('text-primary');
+                        this.classList.add('text-gray-500');
+                    } else {
+                        this.classList.remove('text-gray-500');
+                        this.classList.add('text-primary');
+                    }
+                });
+            });
+            
+            // 回复的回复
+            document.querySelectorAll('[id^="reply-to-reply-"]').forEach(button => {
+                button.addEventListener('click', function() {
+                    const replyId = this.id.split('-')[3];
+                    const commentId = this.id.split('-')[4] || '1'; // 默认为第一个评论
+                    const replyInputId = `reply-input-${commentId}`;
+                    
+                    // 显示回复输入框
+                    document.querySelector(`#${replyInputId}`).classList.remove('hidden');
+                    
+                    // 这里可以设置回复的占位符，如"回复@某人"
+                    console.log('回复回复:', { replyId, commentId });
+                });
+            });
+            
+            // 评论分页
+            document.querySelectorAll('#comment-pagination a').forEach(page => {
+                page.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    // 这里可以根据页码加载评论
+                    console.log('切换评论页码:', this.textContent);
+                });
+            });
+            
+            // 右侧热门话题点击
+            document.querySelectorAll('[id^="hot-topic-"]').forEach(topic => {
+                topic.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const topicId = this.getAttribute('data-topic-id');
+                    window.location.href = `P-TOPIC_DISCUSSION.html?topic_id=${topicId}`;
+                });
+            });
+            
+            // 关注用户
+            document.querySelectorAll('[id^="follow-user-"]').forEach(button => {
+                button.addEventListener('click', function() {
+                    // 这里可以实现关注用户功能
+                    console.log('关注用户:', this.id);
+                    
+                    // 切换关注状态
+                    if (this.innerHTML.includes('关注')) {
+                        this.innerHTML = '<i class="fas fa-check mr-1"></i>已关注';
+                    } else {
+                        this.innerHTML = '<i class="fas fa-plus mr-1"></i>关注';
+                    }
+                });
+            });
+            
+            // 移动端菜单按钮
+            document.querySelector('#mobile-menu-btn').addEventListener('click', function() {
+                // 这里可以实现移动端菜单的显示/隐藏
+                console.log('切换移动端菜单');
+                alert('移动端菜单功能待实现');
+            });
+        });
+    </script>
+</body>
+</html>

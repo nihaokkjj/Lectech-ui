@@ -96,6 +96,7 @@
 
 <style scoped>
 .hot-articles-section {
+  margin-top: 5rem;
   margin-bottom: 1.5rem;
 }
 

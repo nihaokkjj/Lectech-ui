@@ -35,8 +35,18 @@ import HotCart from './HotCard.vue'
 
 .main-content {
 
-  margin-left: 16rem;
-  margin-right: 19rem;
+  margin-left: 3rem;
+  margin-right: 3rem;
+}
+@media (min-width: 1024px) {
+   .main-content {
+    margin-left: 17rem;
+  }
+}
+@media (min-width: 1440px) {
+  .main-content {
+    margin-right: 20rem;
+  }
 }
 
 .left-content {

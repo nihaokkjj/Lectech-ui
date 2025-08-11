@@ -1,9 +1,23 @@
 <script setup>
+import { ref } from 'vue';
 
+// 这是一个模拟的函数，用于处理关注按钮的点击事件
+const followAuthor = (event) => {
+  const button = event.currentTarget;
+  if (button.innerHTML.includes('关注')) {
+    button.innerHTML = '<i class="fas fa-check mr-1"></i>已关注';
+    button.classList.remove('text-primary');
+    button.classList.add('text-gray-500');
+  } else {
+    button.innerHTML = '<i class="fas fa-plus mr-1"></i>关注';
+    button.classList.remove('text-gray-500');
+    button.classList.add('text-primary');
+  }
+};
 </script>
 
 <template>
- <aside id="right-sidebar" class="right-sidebar">
+  <aside id="right-sidebar" class="right-sidebar">
     <div class="sidebar-card-right">
       <h3 class="sidebar-title sidebar-title-ranking">
         <i class="fas fa-trophy ranking-icon"></i>
@@ -209,229 +223,211 @@
 </template>
 
 <style scoped>
-
 .right-sidebar {
-    display: none;
-    width: 18rem;
-    flex-shrink: 0;
-    position: sticky;
-    top: 3rem; 
-    right: 1rem;
+  display: none;
+  width: 18rem;
+  flex-shrink: 0;
+  position: sticky;
+  top: 9rem;
+  right: 1rem;
 }
 @media (min-width: 1440px) {
-    .right-sidebar {
-        display: inline-block;
-    }
+  .right-sidebar {
+    display: inline-block;
+  }
 }
 
 .sidebar-card-right {
-    background-color: #ffffff;
-    border-radius: 0.75rem;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    padding: 1rem;
-    margin-bottom: 1.5rem;
+  background-color: #ffffff;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  padding: 1rem;
+  margin-bottom: 1.5rem;
 }
 .sidebar-card-right:first-child {
-    position: sticky;
-    top: 5rem;
+  position: sticky;
+  top: 4.5rem;
 }
-
+.sidebar-card-right:nth-child(2) {
+  margin-top: 5.5rem;
+}
 .sidebar-title {
-    color: #1f2937;
-    font-weight: 700;
-    margin-bottom: 1rem;
-    display: flex;
-    align-items: center;
+  color: #1f2937;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
 }
 .ranking-icon {
-    color: #f59e0b;
-    margin-right: 0.5rem;
+  color: #f59e0b;
+  margin-right: 0.5rem;
 }
 .topic-icon {
-    color: #ef4444;
-    margin-right: 0.5rem;
+  color: #ef4444;
+  margin-right: 0.5rem;
 }
 .author-icon {
-    color: #3b82f6;
-    margin-right: 0.5rem;
+  color: #3b82f6;
+  margin-right: 0.5rem;
 }
-
 /* 排行榜 */
 .ranking-list {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
 }
-
 .ranking-item {
-    display: flex;
-    align-items: flex-start;
+  display: flex;
+  align-items: flex-start;
 }
-
 .ranking-number {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 1.5rem;
-    height: 1.5rem;
-    font-size: 0.75rem;
-    font-weight: 700;
-    border-radius: 9999px;
-    margin-right: 0.75rem;
-    margin-top: 0.25rem;
-    color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  border-radius: 9999px;
+  margin-right: 0.75rem;
+  margin-top: 0.25rem;
+  color: #ffffff;
 }
 .number-1 {
-    background-color: #4f46e5;
+  background-color: #4f46e5;
 }
 .number-2 {
-    background-color: #6366f1;
+  background-color: #6366f1;
 }
 .number-3 {
-    background-color: #f59e0b;
+  background-color: #f59e0b;
 }
 .number-4,
 .number-5 {
-    background-color: #e5e7eb;
-    color: #374151;
+  background-color: #e5e7eb;
+  color: #374151;
 }
-
 .ranking-content {
-    flex: 1;
-    min-width: 0;
+  flex: 1;
+  min-width: 0;
 }
-
 .ranking-article-title {
-    color: #1f2937;
-    font-weight: 500;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+  color: #1f2937;
+  font-weight: 500;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 .ranking-article-title:hover {
-    color: #4f46e5;
+  color: #4f46e5;
 }
-
 .ranking-stats {
-    display: flex;
-    align-items: center;
-    margin-top: 0.25rem;
-    font-size: 0.75rem;
-    color: #6b7280;
+  display: flex;
+  align-items: center;
+  margin-top: 0.25rem;
+  font-size: 0.75rem;
+  color: #6b7280;
 }
 .ranking-stat-divider {
-    margin: 0 0.5rem;
+  margin: 0 0.5rem;
 }
 .ranking-stat-item i {
-    margin-right: 0.25rem;
+  margin-right: 0.25rem;
 }
-
 .view-all-link-container {
-    margin-top: 0.75rem;
-    text-align: center;
+  margin-top: 0.75rem;
+  text-align: center;
 }
-
 /* 热门话题 */
 .hot-topics-list {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
 }
 .topic-item {
-    background-color: #f9fafb;
-    border-radius: 0.5rem;
-    padding: 0.75rem;
-    transition: all 0.2s ease;
+  background-color: #f9fafb;
+  border-radius: 0.5rem;
+  padding: 0.75rem;
+  transition: all 0.2s ease;
 }
 .topic-item:hover {
-    background-color: #f3f4f6;
+  background-color: #f3f4f6;
 }
-
 .topic-link {
-    display: block;
+  display: block;
 }
-
 .topic-title {
-    color: #1f2937;
-    font-weight: 500;
-    margin-bottom: 0.25rem;
+  color: #1f2937;
+  font-weight: 500;
+  margin-bottom: 0.25rem;
 }
-
 .topic-summary {
-    color: #4b5563;
-    font-size: 0.875rem;
-    margin-bottom: 0.5rem;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+  color: #4b5563;
+  font-size: 0.875rem;
+  margin-bottom: 0.5rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
-
 .topic-footer {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    font-size: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.75rem;
 }
 .topic-participants {
-    color: #6b7280;
+  color: #6b7280;
 }
 .topic-participants i {
-    margin-right: 0.25rem;
+  margin-right: 0.25rem;
 }
 .topic-status {
-    color: #4f46e5;
+  color: #4f46e5;
 }
-
 /* 活跃作者 */
 .active-authors-list {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
-
 .author-item {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
-
 .author-avatar-large {
-    width: 2.5rem;
-    height: 2.5rem;
-    border-radius: 9999px;
-    object-fit: cover;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 9999px;
+  object-fit: cover;
 }
-
 .author-details {
-    margin-left: 0.75rem;
-    flex: 1;
-    min-width: 0;
+  margin-left: 0.75rem;
+  flex: 1;
+  min-width: 0;
 }
-
 .author-name-large {
-    color: #1f2937;
-    font-weight: 500;
+  color: #1f2937;
+  font-weight: 500;
 }
-
 .author-stats {
-    color: #6b7280;
-    font-size: 0.75rem;
+  color: #6b7280;
+  font-size: 0.75rem;
 }
-
 .follow-button {
-    color: #4f46e5;
-    font-size: 0.875rem;
-    font-weight: 500;
-    background: none;
-    border: none;
-    cursor: pointer;
+  color: #4f46e5;
+  font-size: 0.875rem;
+  font-weight: 500;
+  background: none;
+  border: none;
+  cursor: pointer;
 }
 .follow-button:hover {
-    color: #6366f1;
+  color: #6366f1;
 }
 .follow-button i {
-    margin-right: 0.25rem;
+  margin-right: 0.25rem;
 }
 </style>

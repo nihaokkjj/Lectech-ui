@@ -291,12 +291,64 @@ const toggleSort = (isLatest) => {
 
 <style scoped>
 
+/* === 文章卡片公用样式 === */
+.article-card {
+  background-color: #ffffff;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.article-content {
+  padding: 1rem;
+}
+
+.article-meta {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.category-tag {
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: 0.25rem 0.5rem;
+  border-radius: 9999px;
+}
+.category-tag-blue {
+  background-color: #dbeafe;
+  color: #2563eb;
+}
+.category-tag-green {
+  background-color: #d1fae5;
+  color: #059669;
+}
+.category-tag-purple {
+  background-color: #F3E8FF;
+  color: #9333EA;
+}
+.category-tag-orange {
+  background-color: #FFEDD5;
+  color: #EA580C;
+}
+.category-tag-red {
+  background-color: #FEE2E2;
+  color: #DC2626;
+}
+
+
 /* 最新文章列表 */
 .latest-icon {
+  align-items: center;
   color: #4f46e5;
-  margin-left: 7rem;
-  margin-right: 16rem;
-  margin-bottom: 1.5rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
 }
 
 .section-header {
@@ -312,10 +364,11 @@ const toggleSort = (isLatest) => {
   color: #1f2937;
   display: flex;
   align-items: center;
+  margin-bottom: 1rem;
 }
 
 .sort-buttons {
-  display: none;
+  display: flex;
   align-items: center;
   background-color: #ffffff;
   border-radius: 0.5rem;
@@ -399,6 +452,12 @@ const toggleSort = (isLatest) => {
   overflow: hidden;
 }
 
+.meta-item {
+  font-size:0.75rem;
+  color: #6B7280;
+  padding: .25rem .5rem;
+}
+
 .tag-list {
   display: flex;
   flex-wrap: wrap;
@@ -418,10 +477,40 @@ const toggleSort = (isLatest) => {
   color: #4f46e5;
 }
 
+/* 文章结尾部分*/
 .article-footer-list {
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.author-info {
+  display: flex;
+  align-items: center;
+}
+
+.author-avatar {
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 9999px;
+  object-fit: cover;
+}
+
+.author-name {
+  color: #374151;
+  font-size: 0.875rem;
+  margin-left: 0.5rem;
+}
+
+.article-stats {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: #6b7280;
+  font-size: 0.875rem;
+}
+.stat-item i {
+  margin-right: 0.25rem;
 }
 
 .article-cover {
@@ -438,8 +527,8 @@ const toggleSort = (isLatest) => {
 }
 
 .cover-image {
-  width: 100%;
-  height: 100%;
+  width: .375rem;
+  height: .375rem;
   object-fit: cover;
   border-radius: 0.5rem;
 }

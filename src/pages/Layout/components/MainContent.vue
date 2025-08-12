@@ -1,7 +1,5 @@
 <script setup>
-import LeftCart from './LeftCart.vue'
 import RightCart from './RightCart.vue'
-import HotArticle from './HotArticle.vue'
 import LatestArticle from './LatestArticle.vue'
 import HotCart from './HotCard.vue'
 
@@ -9,24 +7,17 @@ import HotCart from './HotCard.vue'
 
 <template>
 
-  <div class="left-content">
-    <!-- 左侧卡片 -->
-     <LeftCart />
-    <!-- 热门标签 -->
-    <HotCart />
-  </div>
-
   <div class="right-content">
     <!-- 右侧卡片 -->
-    <RightCart />
+    <!-- <RightCart /> -->
   </div>
 
   <div class="main-content">
 
     <!-- 热门文章 -->
-  <HotArticle />
+  <!-- <HotArticle /> -->
   <!-- 最新文章 -->
-  <LatestArticle />
+  <!-- <LatestArticle /> -->
   </div>
 
 </template>
@@ -37,11 +28,6 @@ import HotCart from './HotCard.vue'
 
   margin-left: 3rem;
   margin-right: 3rem;
-}
-@media (min-width: 1024px) {
-   .main-content {
-    margin-left: 17rem;
-  }
 }
 @media (min-width: 1440px) {
   .main-content {

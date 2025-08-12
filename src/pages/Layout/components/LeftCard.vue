@@ -69,6 +69,11 @@
     width: 14rem;
     margin-right: 1.5rem;
     flex-shrink: 0;
+     padding-top: 5rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-bottom: 2rem;
+    position: absolute;
 }
 
 /* 在中等屏幕及以上显示 */

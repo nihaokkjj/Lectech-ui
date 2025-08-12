@@ -113,6 +113,7 @@
   display: none; 
   align-items: center; 
   gap: 2rem; 
+}
 
 @media (min-width: 768px) {
   .main-nav {
@@ -279,5 +280,5 @@
     display: block;
   }
 }
-}
+
 </style>

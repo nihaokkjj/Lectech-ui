@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
 
 body, h1, h2, h3, h4, h5, h6, p, ul, ol, li, figure, figcaption, blockquote, dl, dd {
@@ -33,7 +33,6 @@ img, picture, video, canvas, svg {
   display: block; /* 移除底部多余的空白 */
   max-width: 100%; /* 确保图片不会溢出父容器 */
 }
-=======
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -113,4 +112,3 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
->>>>>>> 084d5f85ad260568e270eec528c0100d4f315b9b

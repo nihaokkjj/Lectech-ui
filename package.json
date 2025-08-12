@@ -9,22 +9,18 @@
     "preview": "vite preview"
   },
   "dependencies": {
-<<<<<<< HEAD
-    "vue": "^3.5.17",
-    "vue-router": "^4.5.1"
-=======
-    "vue": "^3.5.17"
->>>>>>> 084d5f85ad260568e270eec528c0100d4f315b9b
+    "@tailwindcss/postcss": "^4.1.11",
+    "vue": "^3.5.18",
+    "vue-router": "^4.0.13"
   },
   "devDependencies": {
+    "@types/node": "^24.2.1",
     "@vitejs/plugin-vue": "^6.0.0",
     "@vue/tsconfig": "^0.7.0",
-<<<<<<< HEAD
     "autoprefixer": "^10.4.21",
     "postcss": "^8.5.6",
+    "sass-embedded": "^1.90.0",
     "tailwindcss": "^4.1.11",
-=======
->>>>>>> 084d5f85ad260568e270eec528c0100d4f315b9b
     "typescript": "~5.8.3",
     "vite": "^7.0.4",
     "vue-tsc": "^2.2.12"

@@ -9,15 +9,15 @@ import HotCart from './HotCard.vue'
 
   <div class="right-content">
     <!-- 右侧卡片 -->
-    <!-- <RightCart /> -->
+    <RightCart />
   </div>
 
   <div class="main-content">
 
     <!-- 热门文章 -->
-  <!-- <HotArticle /> -->
+  <HotArticle />
   <!-- 最新文章 -->
-  <!-- <LatestArticle /> -->
+  <LatestArticle />
   </div>
 
 </template>

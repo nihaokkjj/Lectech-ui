@@ -39,7 +39,7 @@
 /* 在中等屏幕及以上显示 */
 @media (min-width: 1024px) {
     .hot-tags-card {
-        display: inline;
+        display: inline-block;
     }
 }
 
@@ -48,7 +48,7 @@
     color: #374151; 
     font-weight: 600; 
     margin-bottom: 0.75rem; 
-    /* padding-right: 1rem; */
+    padding-right: 1rem;
 }
 
 /* 热门标签列表 */

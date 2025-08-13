@@ -5,7 +5,7 @@ import Publish from '../pages/Publish/index.vue'
 import Home from '../pages/Home/index.vue'
 import Login from '../pages/Login/index.vue'
 import Profile from '../pages/Profile/index.vue'
-import Ranking from '../pages/Ranking/index.vue'
+import Rank from '../pages/Rank/index.vue'
 import Register from '../pages/Register/index.vue'
 import Search from '../pages/Search/index.vue'
 import Topic from '../pages/Topic/index.vue'
@@ -23,12 +23,12 @@ const router = createRouter({
           component: Home,
         },
         {
-          path: 'topic/:id',
+          path: 'topic/',
           component: Topic,
         },
         {
-          path: 'ranking/:id',
-          component: Ranking,
+          path: 'rank/',
+          component: Rank,
         },
         {
           path: 'profile/:id',

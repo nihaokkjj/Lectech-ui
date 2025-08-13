@@ -15,9 +15,9 @@
         </div>
         <!-- 主导航菜单 -->
         <nav id="main-nav" class="main-nav">
-          <a href="#" id="nav-home" class="nav-link nav-link-active">首页</a>
-          <a href="#" id="nav-topic" class="nav-link">话题</a>
-          <a href="#" id="nav-ranking" class="nav-link">排行榜</a>
+          <router-link to="/" class="nav-link nav-link-active">首页</router-link>
+          <router-link class="nav-link">话题</router-link>
+          <router-link to="rank" class="nav-link">排行榜</router-link>
         </nav>
         <!-- 搜索框 -->
         <div class="search-container">

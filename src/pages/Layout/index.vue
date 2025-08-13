@@ -1,32 +1,42 @@
 <script setup>
 import Nav from './components/Nav.vue'
-import LeftCart from './components/LeftCard.vue'
-import HotArticle from './components/HotCard.vue'
-import MainContent from './components/MainContent.vue'
+import LeftCard from './components/LeftCard.vue'
+import HotCard from './components/HotCard.vue'
 </script>
 
 <template>
 <!-- 导航栏 -->
   <Nav />
 
-  <div class="main-content">
+  <div class="left-content">
     <!-- 左侧卡片 -->
-     <LeftCard />
+    <LeftCard />
     <!-- 热门标签 -->
-    <HotCart />
+   <HotCard />
+  </div>
 
+  <div class="main-content">
     <!-- 正文主要内容 -->
-    <MainContent />
+    <router-view />
   </div>
 
 
 </template>
 
 <style scoped>
+
+.left-content {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-bottom: 2rem;
+    position: absolute;
+}
+
 .main-content {
 
-  margin-left: 3rem;
-  margin-right: 3rem;
+  margin-left: 2rem;
+  margin-right: 2rem;
+  margin-top: 5rem;
 }
 @media (min-width: 1024px) {
    .main-content {

@@ -9,15 +9,16 @@ import MainContent from './components/MainContent.vue'
 <!-- 导航栏 -->
   <Nav />
 
-  <div class="left-content">
+  <div class="main-content">
     <!-- 左侧卡片 -->
      <LeftCard />
     <!-- 热门标签 -->
     <HotCart />
+
+    <!-- 正文主要内容 -->
+    <MainContent />
   </div>
 
-<!-- 正文主要内容 -->
- <MainContent />
 
 </template>
 

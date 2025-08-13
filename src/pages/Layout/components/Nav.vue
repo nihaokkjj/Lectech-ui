@@ -7,7 +7,7 @@ const list_title = ref([
   {name:'排行榜', num: 2, link: '/rank'},
 ])
 
-const activeNum = ref(1)
+const activeNum = ref(0)
 
 </script>
 
@@ -161,13 +161,11 @@ const activeNum = ref(1)
   height: 2.5rem;
   background-color: #f3f4f6;
   border-radius: 9999px; 
-  /* padding-left: 1.5rem;
-  padding-right: 1rem; */
-  padding: 0px;
+  padding-left: 1.5rem;
+  padding-right: 1rem;
   max-width: 28rem; 
   margin-left: 2rem; 
   margin-right: 2rem; 
-  border: 1px solid #415475;
   transition: all 0.2s ease;
 }
 

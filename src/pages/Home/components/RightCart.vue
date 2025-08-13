@@ -249,7 +249,7 @@ const followAuthor = (event) => {
   top: 4.5rem;
 }
 .sidebar-card-right:nth-child(2) {
-  margin-top: 5.5rem;
+  margin-top: 1rem;
 }
 .sidebar-title {
   color: #1f2937;

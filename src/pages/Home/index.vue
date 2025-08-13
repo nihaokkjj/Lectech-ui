@@ -13,7 +13,6 @@ import HotArticle from './components/HotArticle.vue'
   </div>
 
   <div class="main-content">
-
     <!-- 热门文章 -->
   <HotArticle />
   <!-- 最新文章 -->

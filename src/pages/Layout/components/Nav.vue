@@ -1,4 +1,13 @@
 <script setup>
+import {ref} from 'vue'
+
+const list_title = ref([
+  {name:'首页', num: 0, link: '/'},
+  {name:'话题', num: 1, link: '/topic'},
+  {name:'排行榜', num: 2, link: '/rank'},
+])
+
+const activeNum = ref(1)
 
 </script>
 
@@ -15,9 +24,16 @@
         </div>
         <!-- 主导航菜单 -->
         <nav id="main-nav" class="main-nav">
-          <router-link to="/" class="nav-link nav-link-active">首页</router-link>
-          <router-link class="nav-link">话题</router-link>
-          <router-link to="rank" class="nav-link">排行榜</router-link>
+          <ul>
+            <button class="nav-link" v-for="list in list_title" @click="activeNum = list.num">
+              <router-link
+                :to="list.link"
+                :class="{'nav-link-active': activeNum === list.num}"
+                >
+                {{ list.name }}
+              </router-link>
+            </button>
+          </ul>
         </nav>
         <!-- 搜索框 -->
         <div class="search-container">
@@ -124,7 +140,8 @@
 .nav-link {
   position: relative;
   transition: all 0.2s ease;
-  color: #4b5563; 
+  color: #4b5563;
+  background-color: #fff; 
 }
 
 .nav-link:hover {

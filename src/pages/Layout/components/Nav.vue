@@ -1,5 +1,5 @@
 <script setup>
-import {ref} from 'vue'
+import {ref, onMounted} from 'vue'
 
 const list_title = ref([
   {name:'首页', num: 0, link: '/'},
@@ -9,11 +9,47 @@ const list_title = ref([
 
 const activeNum = ref(0)
 
+//导航栏的显示效果
+const showHeader = ref(true)
+//获取滚动条的高度
+const getScrollTop = () => {
+  let scrollTop = //不同浏览器获取的方式不同
+  document.documentElement.scrollTop 
+  || window.pageYOffset 
+  || document.body.scrollTop
+
+  return scrollTop
+}
+
+const initScroll =() => {
+
+  let initScrollTop = getScrollTop()
+  let scrollType = 0
+
+  window.addEventListener('scroll', () => {
+    let currentScrollTop = getScrollTop()
+    if (currentScrollTop > initScrollTop) {
+      scrollType = 1
+    } else {
+      scrollType = 0
+    }
+    initScrollTop = currentScrollTop
+    // console.log(scrollType === 1 ? 'shang' : 'xia')
+    if (scrollType === 1 && currentScrollTop > 150) {
+      showHeader.value = false
+    } else showHeader.value = true
+    })
+   }
+
+  onMounted(() => {
+    initScroll()
+  })
+
 </script>
 
 <template>
   <!-- 顶部导航栏 -->
-  <div class="main-header">
+  <div class="main-header" v-show=showHeader >
     <div class="container-content">
       <div class="header-items">
         <div class="logo">

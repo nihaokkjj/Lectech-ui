@@ -11,13 +11,14 @@ import Search from '../pages/Search/index.vue'
 import Detail from '../pages/Topic/components/Detail.vue'
 import Topiclist from '../pages/Topic/components/Topiclist.vue'
 import TopicLayout from '../pages/Topic/TopicLayout.vue'
+import AriticleDetailLayout from '../pages/ArticleDetail/AriticleDetailLayout.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
-      component: Layout, // 这里应该是 Layout 而不是 Topic
+      component: AriticleDetailLayout, 
       children: [
         {
           path: '',
@@ -56,7 +57,8 @@ const router = createRouter({
         },
         {
           path: 'detail/:id',
-          component: ArticleDetail,
+          component: AriticleDetailLayout,
+
         },
       ]
     },

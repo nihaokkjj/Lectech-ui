@@ -8,23 +8,39 @@ import Profile from '../pages/Profile/index.vue'
 import Rank from '../pages/Rank/index.vue'
 import Register from '../pages/Register/index.vue'
 import Search from '../pages/Search/index.vue'
-import Topic from '../pages/Topic/index.vue'
+
+import Detail from '../pages/Topic/components/Detail.vue'
+import Topiclist from '../pages/Topic/components/Topiclist.vue'
+import TopicLayout from '../pages/Topic/TopicLayout.vue'
+import AriticleDetailLayout from '../pages/ArticleDetail/AriticleDetailLayout.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
-  //path, component
   routes: [
     {
       path: '/',
-      component: Layout,
+      component: AriticleDetailLayout, 
       children: [
         {
           path: '',
           component: Home,
         },
         {
-          path: 'topic/',
-          component: Topic,
+
+          path: 'topic/:id',
+          component: TopicLayout,
+          children: [
+            {
+              path: '',
+              component: Topiclist,
+            },
+            {
+              path: '/topic-detail/:id',
+              name: 'topic-detail',
+              component: Detail,
+            },
+          ]
+
         },
         {
           path: 'rank/',
@@ -44,7 +60,8 @@ const router = createRouter({
         },
         {
           path: 'detail/:id',
-          components: ArticleDetail,
+          component: AriticleDetailLayout,
+
         },
       ]
     },

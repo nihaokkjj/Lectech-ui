@@ -1,5 +1,10 @@
 <template>
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> contributor/main
 <router-view/>
 
 </template>

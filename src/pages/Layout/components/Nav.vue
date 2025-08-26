@@ -50,14 +50,14 @@ const initScroll =() => {
 
    const handleSearch = () => {
     //检查输入框里面是否有内容
-    if (searchInput.value.trim !== '') {
+    if (searchInput.value.trim() !== '') {
       //有内容. 路由跳转到'/search'
       router.push({
         path: '/search',
         query: {
           keyword: searchInput.value,
           categoryId: 'Frontend',
-          tagId: 1,
+          tagIds:['Fronted','python','back'],
         }
       })
     }

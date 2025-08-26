@@ -164,12 +164,12 @@ const filterCategories = ref([
 const activeCategoryFilter = ref('all');
 
 const filterTags = ref([
-  { id: 'python', name: 'Python' },
-  { id: 'crawler', name: '爬虫' },
-  { id: 'data', name: '数据分析' },
-  { id: 'more', name: '更多' },
-]);
-const activeTags = ref(['python']);
+  { id: '1', name: 'Python' },
+  { id: '2', name: 'Vue3' },
+  { id: '3', name: '后端' },
+])
+console.log(filterTags.value)
+const activeTags = ref([0]);
 
 const searchCount = ref(24);
 
@@ -177,7 +177,7 @@ const searchCount = ref(24);
 const updateSearchPage = () => {
   const keyword = route.query.keyword || '';
   const categoryId = route.query.category_id;
-  const tagId = route.query.tag;
+  const tagIds = route.query.tagIds;
 
   // 更新搜索关键词显示
   searchQuery.value = keyword;
@@ -185,7 +185,7 @@ const updateSearchPage = () => {
   // 在实际应用中，这里会根据路由参数调用 API 重新获取数据
   console.log('当前搜索关键词:', keyword);
   if (categoryId) console.log('当前筛选分类:', categoryId);
-  if (tagId) console.log('当前筛选标签:', tagId);
+  if (tagIds) console.log('当前筛选标签:', tagIds);
   // 模拟更新结果数量
   searchCount.value = Math.floor(Math.random() * 50) + 10;
 };
@@ -297,6 +297,22 @@ const toggleTagFilter = (tagId) => {
     </div>
     </div>
   </main>
+
+    <div class="pagination-container">
+      <nav id="pagination" class="pagination">
+        <a href="#" id="page-prev" class="pagination-link pagination-prev">
+          <i class="fas fa-chevron-left"></i>
+        </a>
+        <a href="#" id="page-1" class="pagination-link pagination-current">1</a>
+        <a href="#" id="page-2" class="pagination-link">2</a>
+        <a href="#" id="page-3" class="pagination-link">3</a>
+        <span class="pagination-ellipsis">...</span>
+        <a href="#" id="page-10" class="pagination-link">10</a>
+        <a href="#" id="page-next" class="pagination-link pagination-next">
+          <i class="fas fa-chevron-right"></i>
+        </a>
+      </nav>
+    </div>
 
   <footer id="main-footer" class="main-footer">
     <div class="footer-container">
@@ -548,35 +564,10 @@ body {
   margin-left: 0.25rem;
 }
 
-/* 搜索结果列表 */
-.search-results-section {
-  /* No specific styles needed here, as the card itself handles the styling. */
-}
-
-.results-card {
-  background-color: white;
-  border-radius: 0.75rem;
-  box-shadow: var(--shadow-card);
-  overflow: hidden;
-}
-
-.article-card {
-  padding: 1rem;
-  border-bottom: 1px solid var(--color-gray-200);
-  transition: all 0.2s ease;
-  display: flex;
-  flex-direction: column;
-}
-.article-card:hover {
-  background-color: rgba(243, 244, 246, 0.5);
-}
 @media (min-width: 768px) {
-  .article-card {
+  .search-results {
     flex-direction: row;
   }
-}
-.article-card--last {
-  border-bottom-width: 0;
 }
 
 .article-content {
@@ -584,124 +575,12 @@ body {
   min-width: 0;
 }
 
-.article-info {
-  display: flex;
-  align-items: center;
-  margin-bottom: 0.5rem;
-}
-
-.article-category {
-  font-size: 0.75rem;
-  font-weight: 500;
-  padding: 0.25rem 0.5rem;
-  border-radius: 9999px;
-}
-
-.article-date {
-  color: var(--color-gray-500);
-  font-size: 0.75rem;
-  margin-left: 0.75rem;
-}
-
 .icon-small {
   margin-right: 0.25rem;
 }
 
-.article-title {
-  font-size: 1.125rem;
-  font-weight: 700;
-  margin-bottom: 0.5rem;
-  transition-property: color;
-  transition-duration: 150ms;
-}
-.article-title a {
-  color: var(--color-gray-800);
-}
-.article-title a:hover {
-  color: var(--color-primary);
-}
-
-.article-summary {
-  color: var(--color-gray-600);
-  font-size: 0.875rem;
-  margin-bottom: 0.75rem;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
-  overflow: hidden;
-}
-
-.article-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-bottom: 0.75rem;
-}
-
-.article-tag {
-  font-size: 0.75rem;
-  color: var(--color-gray-600);
-  background-color: var(--color-gray-100);
-  padding: 0.25rem 0.5rem;
-  border-radius: 9999px;
-}
-
-.article-meta {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.article-author {
-  display: flex;
-  align-items: center;
-}
-
-.author-avatar {
-  width: 1.5rem;
-  height: 1.5rem;
-  border-radius: 9999px;
-  object-fit: cover;
-}
-
-.author-name {
-  color: var(--color-gray-700);
-  font-size: 0.875rem;
-  margin-left: 0.5rem;
-}
-
-.article-stats {
-  display: flex;
-  align-items: center;
-  color: var(--color-gray-500);
-  font-size: 0.875rem;
-}
-.article-stats > * {
-  margin-left: 0.75rem;
-}
-
 .icon-stats {
   margin-right: 0.25rem;
-}
-
-.article-cover-container {
-  margin-top: 0.75rem;
-  flex-shrink: 0;
-}
-@media (min-width: 768px) {
-  .article-cover-container {
-    margin-top: 0;
-    margin-left: 1rem;
-    width: 12rem;
-    height: 7rem;
-  }
-}
-
-.article-cover-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 0.5rem;
 }
 
 /* 分页 */
@@ -711,12 +590,12 @@ body {
   margin-top: 1.5rem;
 }
 
-.pagination-nav {
+.pagination {
   display: flex;
   align-items: center;
-  background-color: white;
+  background-color: #ffffff;
   border-radius: 0.5rem;
-  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
   padding: 0.25rem;
 }
 
@@ -726,18 +605,24 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--color-gray-700);
+  color: #4b5563;
   border-radius: 0.5rem;
 }
 .pagination-link:hover {
-  background-color: var(--color-gray-100);
+  background-color: #f3f4f6;
 }
-.pagination-link--active {
-  color: white;
-  background-color: var(--color-primary);
+
+.pagination-current {
+  color: #ffffff;
+  background-color: #4f46e5;
 }
-.pagination-link--active:hover {
-  background-color: var(--color-primary);
+.pagination-current:hover {
+  background-color: #4f46e5;
+}
+
+.pagination-prev,
+.pagination-next {
+  color: #6b7280;
 }
 
 .pagination-ellipsis {
@@ -746,7 +631,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--color-gray-500);
+  color: #6b7280;
 }
 
 /* 底部版权信息 */

@@ -30,17 +30,16 @@ import HotCard from './components/HotCard.vue'
     padding-right: 1rem;
     padding-bottom: 2rem;
     position: absolute;
+    top: 5rem;
+    left: 1rem;
 }
 
 .main-content {
-
-  margin-left: 2rem;
-  margin-right: 2rem;
   margin-top: 5rem;
 }
 @media (min-width: 1024px) {
    .main-content {
-    margin-left: 17rem;
+    margin-left: 15rem;
   }
 }
 

@@ -15,10 +15,10 @@ import Rightsidebar from './components/Rightsidebar.vue';
   <Sidebar /> 
   <Topiclist /> 
   <Rightsidebar />
- </div>
+ </div> -->
 
- <!-- <Article /> 
- <Detail /> --> -->
+ <Article /> 
+ <Detail /> 
 </template>
 
 <style scoped lang="scss">

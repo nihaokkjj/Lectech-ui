@@ -208,7 +208,6 @@ const getCategoryClass = (category) => {
 <style scoped>
 /* 使用 scoped 样式，确保样式只应用于此组件 */
 .ranking-container {
-    margin: 0 auto;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     color: #1F2937;
 }

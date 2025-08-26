@@ -1,5 +1,8 @@
 <script setup>
 import {ref, onMounted} from 'vue'
+import {useRouter} from'vue-router'
+
+const router = useRouter()
 
 const list_title = ref([
   {name:'首页', num: 0, link: '/'},
@@ -41,6 +44,25 @@ const initScroll =() => {
     })
    }
 
+   //搜索跳转
+   //存储搜索框里面的值
+   const searchInput = ref('')
+
+   const handleSearch = () => {
+    //检查输入框里面是否有内容
+    if (searchInput.value.trim !== '') {
+      //有内容. 路由跳转到'/search'
+      router.push({
+        path: '/search',
+        query: {
+          keyword: searchInput.value,
+          categoryId: 'Frontend',
+          tagId: 1,
+        }
+      })
+    }
+   }
+
   onMounted(() => {
     initScroll()
   })
@@ -74,7 +96,13 @@ const initScroll =() => {
         <!-- 搜索框 -->
         <div class="search-container">
             <i class="fas fa-search search-icon"></i>
-            <input id="search-input" type="text" placeholder="搜索文章、话题或用户" class="search-input">
+            <input
+             id="search-input"
+              type="text" placeholder="搜索文章、话题或用户"
+              v-model="searchInput"
+              @keyup.enter="handleSearch"
+              class="search-input"
+               >
         </div>
            <!-- 未登录状态按钮 -->
         <div class="auth-buttons">
@@ -163,7 +191,7 @@ const initScroll =() => {
   height: 4rem;
   transition: all 0.2s ease;
   display: none; 
-  align-items: center; 
+  /* align-items: center;  */
   gap: 2rem; 
 }
 

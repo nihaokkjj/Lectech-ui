@@ -25,12 +25,11 @@ import HotArticle from './components/HotArticle.vue'
 
 @media (min-width: 1440px) {
   .main-content {
-    margin-right: 20rem;
+    margin-right: 15rem;
   }
 }
 .right-content {
-
   position: absolute;
-  right: 0rem;
+  right: 1rem;
 }
 </style>

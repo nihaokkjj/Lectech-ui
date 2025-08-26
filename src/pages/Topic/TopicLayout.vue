@@ -7,9 +7,9 @@ import Header from './components/Header.vue';
 
 <template>
   <div class="flex">
-    <Header />
+    <!-- <Header /> -->
     <!-- 左侧边栏 -->
-    <Sidebar />
+    <!-- <Sidebar /> -->
     
     <!-- 主内容区域 -->
     <main class="flex-1 min-w-0">

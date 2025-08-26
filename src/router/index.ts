@@ -8,7 +8,6 @@ import Profile from '../pages/Profile/index.vue'
 import Rank from '../pages/Rank/index.vue'
 import Register from '../pages/Register/index.vue'
 import Search from '../pages/Search/index.vue'
-
 import Detail from '../pages/Topic/components/Detail.vue'
 import Topiclist from '../pages/Topic/components/Topiclist.vue'
 import TopicLayout from '../pages/Topic/TopicLayout.vue'
@@ -19,19 +18,18 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      component: AriticleDetailLayout, 
+      component: Layout, 
       children: [
         {
           path: '',
           component: Home,
         },
         {
-
-          path: 'topic/:id',
+          path: '/topic',
           component: TopicLayout,
           children: [
             {
-              path: '',
+              path: '/topic-list',
               component: Topiclist,
             },
             {
@@ -43,23 +41,23 @@ const router = createRouter({
 
         },
         {
-          path: 'rank/',
+          path: '/rank',
           component: Rank,
         },
         {
-          path: 'profile/:id',
+          path: '/profile/:id',
           component: Profile,
         },       
         {
-          path: 'search/:id',
+          path: '/search',
           component: Search,
         },        
         {
-          path: 'publish/:id',
+          path: '/publish/:id',
           component: Publish,
         },
         {
-          path: 'detail/:id',
+          path: '/detail/:id',
           component: AriticleDetailLayout,
 
         },

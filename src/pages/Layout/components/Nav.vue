@@ -85,6 +85,7 @@ const initScroll =() => {
           <ul>
             <button 
             v-for="list in list_title" 
+            style="background-color: #ffffff;"
             @click="activeNum = list.num">
               <router-link
                 class="nav-link" 
@@ -209,7 +210,7 @@ const initScroll =() => {
   position: relative;
   transition: all 0.2s ease;
   color: #454b53;
-  background-color: #fff; 
+  background: #ffffff; 
 }
 
 .nav-link:hover {

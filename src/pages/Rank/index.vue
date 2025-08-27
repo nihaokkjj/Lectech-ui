@@ -181,7 +181,6 @@ const rankingDescription = computed(() => {
 
 // 动态获取更新时间
 const updateTime = computed(() => {
-    // 实际项目中这里可以根据当前日期动态生成
     return '2023-10-23';
 });
 
@@ -206,14 +205,15 @@ const getCategoryClass = (category) => {
 </script>
 
 <style scoped>
-/* 使用 scoped 样式，确保样式只应用于此组件 */
+
 .ranking-container {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    top: 5px;
     color: #1F2937;
+    width: 100%;
 }
 
 .ranking-header {
-    margin-bottom: 24px;
+    top: 2px;
 }
 
 .header-main {
@@ -221,7 +221,7 @@ const getCategoryClass = (category) => {
     flex-direction: column;
     align-items: flex-start;
     justify-content: space-between;
-    margin-bottom: 16px;
+    margin-bottom: 1px;
 }
 
 @media (min-width: 768px) {
@@ -238,7 +238,7 @@ const getCategoryClass = (category) => {
     color: #1F2937;
     display: flex;
     align-items: center;
-    margin-bottom: 16px;
+    margin-bottom: 1px;
 }
 
 @media (min-width: 768px) {

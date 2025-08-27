@@ -83,8 +83,11 @@ const initScroll =() => {
         <!-- 主导航菜单 -->
         <nav id="main-nav" class="main-nav">
           <ul>
-            <button class="nav-link" v-for="list in list_title" @click="activeNum = list.num">
+            <button 
+            v-for="list in list_title" 
+            @click="activeNum = list.num">
               <router-link
+                class="nav-link" 
                 :to="list.link"
                 :class="{'nav-link-active': activeNum === list.num}"
                 >
@@ -191,7 +194,7 @@ const initScroll =() => {
   height: 4rem;
   transition: all 0.2s ease;
   display: none; 
-  /* align-items: center;  */
+  align-items: center; 
   gap: 2rem; 
 }
 
@@ -202,9 +205,10 @@ const initScroll =() => {
 }
 
 .nav-link {
+  align-items: center;
   position: relative;
   transition: all 0.2s ease;
-  color: #4b5563;
+  color: #454b53;
   background-color: #fff; 
 }
 
@@ -214,7 +218,7 @@ const initScroll =() => {
 
 .nav-link-active {
   color: rgb(79, 70, 229);
-  font-weight: 500; 
+  font-weight: 600; 
 }
 
 /* 搜索框 */
@@ -236,7 +240,7 @@ const initScroll =() => {
 .search-container:hover {
     max-width: 28rem; /* 展开到完整的搜索框宽度 */
     background-color: #ffffff; /* 背景变白 */
-    box-shadow: 0 0 0 2px #4F46E5; /* 添加蓝色边框效果 */
+    box-shadow: 0 0 0 2px #4F46E5; /*添加蓝色边框效果 */
 }
 
 @media (min-width: 768px) {

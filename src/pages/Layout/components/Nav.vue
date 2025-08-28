@@ -1,6 +1,6 @@
 <script setup>
 import {ref, onMounted} from 'vue'
-import {useRouter} from'vue-router'
+import { useRouter } from 'vue-router'
 
 const router = useRouter()
 
@@ -61,7 +61,15 @@ const initScroll =() => {
         }
       })
     }
-   }
+}
+
+//登录与注册弹窗
+//1 登录, 0 注册
+const loginRegisterRef = ref()
+const loginRegister = (type) => {
+  router.push('/login')
+  loginRegister.value.showPanel(type)
+}
 
   onMounted(() => {
     initScroll()
@@ -85,7 +93,7 @@ const initScroll =() => {
           <ul>
             <button 
             v-for="list in list_title" 
-            style="background-color: #ffffff;"
+            style="background-color: #ffffff;  align-items: flex-start;"
             @click="activeNum = list.num">
               <router-link
                 class="nav-link" 
@@ -110,8 +118,8 @@ const initScroll =() => {
         </div>
            <!-- 未登录状态按钮 -->
         <div class="auth-buttons">
-          <a href="#" id="login-btn" class="login-btn">登录</a>
-          <a href="#" id="register-btn" class="register-btn">注册</a>
+          <a href="#" id="login-btn" class="login-btn" @click="loginRegister(1)">登录</a>
+          <a href="#" id="register-btn" class="register-btn" @click="loginRegister(0)">注册</a>
         </div>
           <!-- 已登录状态 - 默认隐藏 -->
         <div id="user-menu" class="user-menu">
@@ -139,6 +147,9 @@ const initScroll =() => {
         </button>
       </div>
     </div>
+  </div>
+  <div>
+    <LoginAndRegister ref="loginRegisterRef"></LoginAndRegister>
   </div>
 </template>
 
@@ -206,11 +217,11 @@ const initScroll =() => {
 }
 
 .nav-link {
-  align-items: center;
   position: relative;
   transition: all 0.2s ease;
   color: #454b53;
-  background: #ffffff; 
+  background: #ffffff;
+  align-items: flex-start; 
 }
 
 .nav-link:hover {

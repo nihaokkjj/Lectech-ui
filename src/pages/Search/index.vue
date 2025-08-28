@@ -150,7 +150,7 @@ const searchResults = ref([
 const sortOptions = ref([
   { value: 'relevance', name: '按相关度' },
   { value: 'time', name: '按时间' },
-  { value: 'popularity', name: '按热度' }
+  { value: 'popularity', name: '按热度' },
 ]);
 const selectedSort = ref('relevance');
 
@@ -159,7 +159,8 @@ const filterCategories = ref([
   { id: 'frontend', name: '前端开发' },
   { id: 'backend', name: '后端开发' },
   { id: 'ai', name: '人工智能' },
-  { id: 'more', name: '更多' },
+  { id: 'more', name
+  : '更多' },
 ]);
 const activeCategoryFilter = ref('all');
 

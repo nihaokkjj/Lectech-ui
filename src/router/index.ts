@@ -3,10 +3,9 @@ import ArticleDetail from '../pages/ArticleDetail/index.vue'
 import Layout from '../pages/Layout/index.vue'
 import Publish from '../pages/Publish/index.vue'
 import Home from '../pages/Home/index.vue'
-import Login from '../pages/Login/index.vue'
 import Profile from '../pages/Profile/index.vue'
 import Rank from '../pages/Rank/index.vue'
-import Register from '../pages/Register/index.vue'
+import LoginAndRegister from '../pages/LoginAndRegister/index.vue'
 import Search from '../pages/Search/index.vue'
 import Detail from '../pages/Topic/components/Detail.vue'
 import Topiclist from '../pages/Topic/components/Topiclist.vue'
@@ -61,15 +60,11 @@ const router = createRouter({
           component: AriticleDetailLayout,
 
         },
-      ]
+      ],
     },
     {
       path: '/login',
-      component: Login,
-    },
-    {
-      path: '/register',
-      component: Register,
+      component: LoginAndRegister,
     }
   ],
 })

@@ -11,6 +11,8 @@ declare module 'vue' {
     ArticleListItem: typeof import('./src/components/ArticleListItem.vue')['default']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElDialog: typeof import('element-plus/es')['ElDialog']
+    ElForm: typeof import('element-plus/es')['ElForm']
+    Password: typeof import('./src/components/Password.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
   }

@@ -10,14 +10,14 @@
         <button
           @click="currentTab = 'email'"
           :class="{'tab-active': currentTab === 'email', 'tab-inactive': currentTab !== 'email'}"
-          class="flex-1 py-3 text-center font-medium bg-white"
+          class="flex-1 py-3 text-center font-medium bg-white focus:outline-none"
         >
           邮箱注册
         </button>
         <button
           @click="currentTab = 'phone'"
           :class="{'tab-active': currentTab === 'phone', 'tab-inactive': currentTab !== 'phone'}"
-          class="flex-1 py-3 text-center font-medium bg-white"
+          class="flex-1 py-3 text-center font-medium bg-white focus:outline-none"
         >
           手机号注册
         </button>
@@ -135,18 +135,11 @@
     </div>
   </main>
 
-      <!-- 底部版权信息 -->
-    <footer id="main-footer" class="bg-white py-6">
-        <div class="container mx-auto px-4">
-            <div class="text-center">
-                <p class="text-gray-500 text-sm">© 2023 lectech. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref , defineProps} from 'vue';
+
 
 const currentTab = ref('email');
 const countdown = ref(0);

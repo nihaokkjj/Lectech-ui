@@ -12,9 +12,6 @@ const verify = (rule: any, value: string | null | undefined, reg: RegExp, callba
   if (value) {
     if (reg.test(value)) {
       callback();
-    } else {
-      // 假设 rule 包含 message 属性，用于生成错误信息
-      // 如果 rule 没有 message 属性，您可能需要根据实际情况修改
       callback(new Error(rule.message || 'Validation failed'));
     }
   } else {

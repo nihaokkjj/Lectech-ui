@@ -18,7 +18,10 @@
                     </div>
                 </div>
                 <!-- 密码组件 -->
-                <Password></Password>
+                <Password
+                v-model="emailForm.password"
+                type="Password"
+                ></Password>
                 
                 <div id="remember-forgot" class="flex items-center justify-between">
                     <div class="flex items-center">
@@ -58,12 +61,11 @@ const switchToRegister = () => {
   emits('changeState')
 }
 
-//表单校验逻辑
-const rules = {
-  password: [
-    {required: true, message: "请输入密码"}
-  ],
-}
+//密码数据
+const emailForm = ref({
+  password: ''
+});
+
 
 </script>
 

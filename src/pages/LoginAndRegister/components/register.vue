@@ -35,19 +35,20 @@
         </div>
         
         <div>
-          <label for="password" class="block text-sm font-medium text-gray-700 mb-1">密码</label>
-          <div class="relative text-center">
-            <input :type="passwordFieldType.email" id="password" v-model="emailForm.password" class="w-full px-4 py-3 rounded-lg border border-gray-300 form-input-focus" placeholder="请设置密码" required>
-            <button type="button" @click="togglePasswordVisibility('email')" class="absolute bg-white right-3 text-gray-400 hover:text-gray-600">
-              <i :class="passwordFieldType.email === 'password' ? 'far fa-eye' : 'far fa-eye-slash'"></i>
-            </button>
-          </div>
+          <Password
+          v-model="emailForm.password"
+          :prePassword="emailForm.password"
+          type="Password"
+          ></Password>
           <p class="text-xs text-gray-500 mt-1">密码长度至少8位，包含字母和数字</p>
         </div>
         
         <div>
-          <label for="confirm-password" class="block text-sm font-medium text-gray-700 mb-1">确认密码</label>
-          <input type="password" id="confirm-password" v-model="emailForm.confirmPassword" class="w-full px-4 py-3 rounded-lg border border-gray-300 form-input-focus" placeholder="请再次输入密码" required>
+          <Password
+          v-model="emailForm.confirmPassword"
+          :prePassword="emailForm.password"
+          type="rePassword"
+          ></Password>
         </div>
         
         <div class="flex items-start">
@@ -139,7 +140,9 @@
 
 <script setup>
 import { ref , defineProps} from 'vue';
-
+import { getCurrentInstance } from 'vue';
+import Password from '@/components/Password.vue'
+const {proxy} = getCurrentInstance()
 
 const currentTab = ref('email');
 const countdown = ref(0);

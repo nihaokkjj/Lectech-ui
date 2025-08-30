@@ -100,7 +100,7 @@ const loginRegister = (type) => {
         <nav id="main-nav" class="main-nav">
           <ul>
             <button 
-            v-for="list in list_title" 
+            v-for="list in list_title" :key="list.num"
             style="background-color: #ffffff;  align-items: flex-start;"
             @click="activeNum = list.num">
               <router-link

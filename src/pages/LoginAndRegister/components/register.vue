@@ -2,7 +2,7 @@
   <main class="flex-grow w-2xl flex items-center justify-center py-12 px-4">
     <div id="register-container" class="bg-white rounded-xl shadow-card p-8 w-full max-w-md">
       <div class="text-center mb-8">
-        <h1 class="text-2xl font-bold text-gray-800">注册 lectech</h1>
+        <h2 class="text-2xl font-bold text-gray-800">注册 lectech</h2>
         <p class="text-gray-500 mt-2">加入技术交流社区，分享你的知识</p>
       </div>
       

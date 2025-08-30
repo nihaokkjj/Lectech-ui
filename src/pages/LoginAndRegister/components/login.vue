@@ -3,7 +3,7 @@
     <main class="flex-1 w-2xl flex items-center justify-center px-4 py-12">
         <div id="login-container" class="bg-white rounded-xl shadow-card w-full max-w-md p-8">
             <div id="login-header" class="text-center mb-8">
-                <h1 class="text-2xl font-bold text-gray-800">登录 lectech</h1>
+                <h2 class="text-2xl font-bold text-gray-800">登录 lectech</h2>
                 <p class="text-gray-500 mt-2">欢迎回来，请登录您的账号</p>
             </div>
             
@@ -32,7 +32,10 @@
                 </div>
                 
                 <div>
-                    <button id="login-button" type="submit" class="w-full bg-primary hover:bg-secondary text-white py-3 rounded-lg btn-primary-effect">
+                    <button 
+                    id="login-button" 
+                    type="submit" 
+                    class="w-full bg-primary hover:bg-secondary text-white py-3 rounded-lg btn-primary-effect">
                         登录
                     </button>
                 </div>

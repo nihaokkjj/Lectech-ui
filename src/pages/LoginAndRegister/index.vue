@@ -50,10 +50,10 @@ const checkLogin = () => {
           </div>
           
           <div class="flex items-center">
-            <dive 
+            <div
             @click="changeToLogin" 
             v-if="currentPage === 'register'"
-            class="text-gray-600 hover:text-primary">已有账号？去登录</dive>
+            class="text-gray-600 hover:text-primary">已有账号？去登录</div>
           </div>
         </div>
       </div>

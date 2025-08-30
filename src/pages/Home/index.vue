@@ -1,5 +1,5 @@
 <script setup>
-import RightCart from './components/RightCart.vue'
+import RightCard from './components/RightCard.vue'
 import LatestArticle from './components/LatestArticle.vue'
 import HotArticle from './components/HotArticle.vue'
 
@@ -9,7 +9,7 @@ import HotArticle from './components/HotArticle.vue'
 
   <div class="right-content">
     <!-- 右侧卡片 -->
-    <RightCart />
+    <RightCard />
   </div>
 
   <div class="main-content">

@@ -1,13 +1,15 @@
 <template>
+    <div class="left-content">
+    <Left />
+    </div>
     <div class="ranking-container">
         <!-- 排行榜头部 -->
         <section class="ranking-header">
             <div class="header-main">
-                <h1 class="header-title">
-                    <i class="fas fa-trophy header-icon"></i>
-                    文章排行榜
-                </h1>
-                
+            <h1 class="header-title">
+                <i class="fas fa-trophy header-icon"></i>
+                文章排行榜
+            </h1>
                 <!-- 排行榜类型切换 -->
                 <div class="ranking-tabs">
                     <button 
@@ -72,6 +74,7 @@
 </template>
 
 <script setup>
+import Left from './components/Left.vue'
 import { ref, computed } from 'vue';
 
 // 定义一个文章列表的示例数据
@@ -205,10 +208,29 @@ const getCategoryClass = (category) => {
 </script>
 
 <style scoped>
+  .left-content {
+    display: none;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-bottom: 2rem;
+    position: absolute;
+    top: 5rem;
+    left: 1rem;
+  }
+
+  @media (min-width: 1024px){
+  .left-content {
+    display: inline-block;
+  }
+  .ranking-container{
+    margin-left: 15rem;
+  }
+}
 
 .ranking-container {
     top: 5px;
     color: #1F2937;
+    max-width: none; 
     width: 100%;
 }
 

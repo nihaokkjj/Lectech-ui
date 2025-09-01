@@ -103,6 +103,8 @@ defineProps({
 /* ... (其他样式保持不变) */
 
 .article-list-item {
+  width: 100%; 
+  max-width: 100%;
   border-bottom: 1px solid #e5e7eb;
   padding: 1rem;
   transition: all 0.2s ease;

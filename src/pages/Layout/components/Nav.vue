@@ -99,18 +99,20 @@ const loginRegister = (type) => {
         <!-- 主导航菜单 -->
         <nav id="main-nav" class="main-nav">
           <ul>
-            <button 
-            v-for="list in list_title" :key="list.num"
-            style="background-color: #ffffff;  align-items: flex-start;"
-            @click="activeNum = list.num">
+            <div style="background-color: #ffffff;  
+            align-items: flex-start;"
+            >
               <router-link
+                v-for="list in list_title" 
+                :key="list.num"
                 class="nav-link" 
                 :to="list.link"
                 :class="{'nav-link-active': activeNum === list.num}"
+                @click="activeNum = list.num"
                 >
                 {{ list.name }}
               </router-link>
-            </button>
+            </div>
           </ul>
         </nav>
         <!-- 搜索框 -->

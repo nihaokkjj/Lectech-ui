@@ -1,3 +1,53 @@
+<script setup>
+import {ref, defineProps} from 'vue'
+
+defineProps ({
+    categoryList: {
+        type: Array,
+        required: true,
+        validator: (value) => {
+            return value.every(item => 
+                typeof item.id === 'number' &&
+                typeof item.name === 'string' &&
+                typeof item.icon === 'string'
+            )
+        }
+    }
+})
+
+
+//访问的类别
+const activeId = ref(0)
+
+const changeList = (id)=>{
+  activeId.value = id
+}
+</script>
+
+<template>
+    <aside id="sidebar" class="sidebar">
+      <div class="sidebar-card">
+        <h3 id="categories-title" class="categories-title">文章分类</h3>
+        <ul class="categories-list">
+          <li
+          v-for="list in categoryList" 
+          :key="list.id"
+         >
+            <div  
+            class="category-link"
+            :class="{'category-active-link': activeId === list.id}"
+            @click="changeList(list.id)"
+            >
+              <i class="fas" :class="list.icon"></i>
+              <span>{{list.name}}</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </aside>
+</template>
+
+<style scoped>
 /* 左侧菜单 */
 .sidebar {
     display: none;
@@ -64,3 +114,4 @@
     background-color: rgba(79, 70, 229, 0.1);
     color: #4F46E5;
 }
+</style>

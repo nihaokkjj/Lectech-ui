@@ -143,13 +143,13 @@ const loginRegister = (type) => {
               <span class="notification-count">3</span>
             </button>
           </div>
-          <!-- <div class="profile-container">
+          <div class="profile-container">
             <button id="profile-dropdown-btn" class="profile-dropdown-btn">
               <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=256&q=80" alt="用户头像" class="profile-avatar">
               <span class="profile-name">JaneDoe</span>
               <i class="fas fa-chevron-down text-xs text-gray-400"></i>
             </button>
-          </div> -->
+          </div>
         </div>
         <!-- 移动端菜单按钮 -->
         <button id="mobile-menu-btn" class="mobile-menu-btn">

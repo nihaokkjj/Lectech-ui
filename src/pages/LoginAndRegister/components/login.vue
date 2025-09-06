@@ -20,7 +20,8 @@
                 <!-- 密码组件 -->
                 <Password
                 v-model="emailForm.password"
-                type="Password"
+                :prePassword="emailForm.password"
+                type="password"
                 ></Password>
                 
                 <div id="remember-forgot" class="flex items-center justify-between">
@@ -54,7 +55,6 @@
 import { useRouter } from 'vue-router';
 import { ref, onMounted , defineEmits, getCurrentInstance} from 'vue'
 import Password from '@/components/Password.vue'
-
 const { proxy } = getCurrentInstance()
 
 const emits = defineEmits(['changeState'])
@@ -68,6 +68,7 @@ const switchToRegister = () => {
 const emailForm = ref({
   password: ''
 });
+
 
 
 </script>

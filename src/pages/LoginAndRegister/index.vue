@@ -11,7 +11,6 @@ const route = useRoute()
 let state = route.query.detail
 const currentPage = ref(state)
 
-
 // 切换到登录页面
 const changeToLogin = () => {
   currentPage.value = 'login'

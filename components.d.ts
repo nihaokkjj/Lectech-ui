@@ -9,6 +9,11 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     ArticleListItem: typeof import('./src/components/ArticleListItem.vue')['default']
+    ElForm: typeof import('element-plus/es')['ElForm']
+    ElFormItem: typeof import('element-plus/es')['ElFormItem']
+    ElInput: typeof import('element-plus/es')['ElInput']
+    FormInpur: typeof import('./src/components/FormInpur.vue')['default']
+    FormInput: typeof import('./src/components/FormInput.vue')['default']
     LeftCard: typeof import('./src/components/LeftCard.vue')['default']
     Password: typeof import('./src/components/Password.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']

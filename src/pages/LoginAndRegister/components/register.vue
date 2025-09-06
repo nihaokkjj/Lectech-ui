@@ -38,12 +38,8 @@
           <Password
           v-model="emailForm.password"
           :prePassword="emailForm.password"
-          type="Password"
+          type="password"
           ></Password>
-          <p class="text-xs text-gray-500 mt-1">密码长度至少8位，包含字母和数字</p>
-        </div>
-        
-        <div>
           <Password
           v-model="emailForm.confirmPassword"
           :prePassword="emailForm.password"
@@ -62,15 +58,8 @@
       </form>
       
       <form v-if="currentTab === 'phone'" @submit.prevent="handlePhoneRegister" class="space-y-5 text-left">
-        <div>
-          <label for="phone-username" class="block text-sm font-medium text-gray-700 mb-1">用户名</label>
-          <input type="text" id="phone-username" v-model="phoneForm.username" class="w-full px-4 py-3 rounded-lg border border-gray-300 form-input-focus" placeholder="请设置用户名" required>
-        </div>
-        
-        <div>
-          <label for="phone-number" class="block text-sm font-medium text-gray-700 mb-1">手机号</label>
-          <input type="tel" id="phone-number" v-model="phoneForm.phoneNumber" class="w-full px-4 py-3 rounded-lg border border-gray-300 form-input-focus" placeholder="请输入手机号" required>
-        </div>
+        <FormInput v-model="phoneForm.username" type="text"></FormInput>
+        <FormInput v-model="phoneForm.phoneNumber" type="tel"></FormInput>
         
         <div>
           <label for="verification-code" class="block text-sm font-medium text-gray-700 mb-1">验证码</label>
@@ -89,19 +78,16 @@
         </div>
         
         <div>
-          <label for="phone-password" class="block text-sm font-medium text-gray-700 mb-1">密码</label>
-          <div class="relative">
-            <input :type="passwordFieldType.phone" id="phone-password" v-model="phoneForm.password" class="w-full px-4 py-3 rounded-lg border border-gray-300 form-input-focus" placeholder="请设置密码" required>
-            <button type="button" @click="togglePasswordVisibility('phone')" class="absolute right-3 text-gray-400 bg-white hover:text-gray-600">
-              <i :class="passwordFieldType.phone === 'password' ? 'far fa-eye' : 'far fa-eye-slash'"></i>
-            </button>
-          </div>
-          <p class="text-xs text-gray-500 mt-1">密码长度至少8位，包含字母和数字</p>
-        </div>
-        
-        <div>
-          <label for="phone-confirm-password" class="block text-sm font-medium text-gray-700 mb-1">确认密码</label>
-          <input type="password" id="phone-confirm-password" v-model="phoneForm.confirmPassword" class="w-full px-4 py-3 rounded-lg border border-gray-300 form-input-focus" placeholder="请再次输入密码" required>
+          <Password
+          v-model="phoneForm.password"
+          :prePassword="phoneForm.password"
+          type="password"
+          ></Password>
+          <Password
+          v-model="phoneForm.confirmPassword"
+          :prePassword="phoneForm.password"
+          type="rePassword"
+          ></Password>
         </div>
         
         <div class="flex items-start">
@@ -142,6 +128,8 @@
 import { ref , defineProps} from 'vue';
 import { getCurrentInstance } from 'vue';
 import Password from '@/components/Password.vue'
+import FormInput from '@/components/FormInput.vue';
+
 const {proxy} = getCurrentInstance()
 
 const currentTab = ref('email');

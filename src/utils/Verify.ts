@@ -9,7 +9,7 @@ const verify = (rule: RegExp, value: string | null | undefined, msg: string) => 
   if (!value) {
     return '验证失败'
   } else if(rule.test(value)){
-    return null
+    return ''
   } else {
     return msg
   }

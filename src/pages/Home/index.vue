@@ -49,6 +49,12 @@ import Left from './components/Left.vue'
     margin-right: 15rem;
   }
 }
+  @media (min-width: 1680px) {
+    .main-content {
+      margin-left: 0rem;
+      margin-right: 0rem;
+    }
+  }
 
 .right-content {
   position: absolute;

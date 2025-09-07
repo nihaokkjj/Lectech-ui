@@ -24,16 +24,9 @@
       </div>
       
       <form v-if="currentTab === 'email'" @submit.prevent="handleEmailRegister" class="space-y-5 text-left">
-        <div>
-          <label for="username" class="block text-sm font-medium text-gray-700 mb-1">用户名</label>
-          <input type="text" id="username" v-model="emailForm.username" class="w-full px-4 py-3 rounded-lg border-gray-300 form-input-focus" placeholder="请设置用户名" required>
-        </div>
-        
-        <div>
-          <label for="email" class="block text-sm font-medium text-gray-700 mb-1">邮箱</label>
-          <input type="email" id="email" v-model="emailForm.email" class="w-full px-4 py-3 rounded-lg border border-gray-300 form-input-focus" placeholder="请输入邮箱" required>
-        </div>
-        
+        <FormInput v-model="emailForm.username" type="text"></FormInput>
+        <FormInput v-model="emailForm.email" type="email" ></FormInput>
+
         <div>
           <Password
           v-model="emailForm.password"
@@ -59,7 +52,7 @@
       
       <form v-if="currentTab === 'phone'" @submit.prevent="handlePhoneRegister" class="space-y-5 text-left">
         <FormInput v-model="phoneForm.username" type="text"></FormInput>
-        <FormInput v-model="phoneForm.phoneNumber" type="tel"></FormInput>
+        <FormInput v-model="phoneForm.phoneNumber" type="tel" ></FormInput>
         
         <div>
           <label for="verification-code" class="block text-sm font-medium text-gray-700 mb-1">验证码</label>
@@ -125,15 +118,26 @@
 </template>
 
 <script setup>
-import { ref , defineProps} from 'vue';
+import { ref , defineProps, onBeforeUpdate, defineEmits} from 'vue';
 import { getCurrentInstance } from 'vue';
 import Password from '@/components/Password.vue'
 import FormInput from '@/components/FormInput.vue';
+import { errorMessages } from 'vue/compiler-sfc';
+import { useRouter } from 'vue-router';
 
+//切换到登录页面
+const emits = defineEmits(['changeState'])
+const switchToLogin = () => {
+  emits('changeState')
+}
+
+const router = useRouter()
 const {proxy} = getCurrentInstance()
 
 const currentTab = ref('email');
 const countdown = ref(0);
+
+//用户输入的信息
 const emailForm = ref({
   username: '',
   email: '',
@@ -181,21 +185,22 @@ const handleEmailRegister = () => {
     return;
   }
   
-  if (emailForm.value.password !== emailForm.value.confirmPassword) {
-    alert('两次输入的密码不一致');
-    return;
-  }
-  
   if (!emailForm.value.agreeTerms) {
     alert('请阅读并同意用户协议和隐私政策');
     return;
   }
   
+  if (emailForm.value.password !== emailForm.value.confirmPassword) {
+    alert('两次输入的密码不一致')
+    return;
+  }
   // 模拟注册成功
   alert('注册成功，请登录');
+  switchToLogin()
   // 实际项目中应调用API进行注册
   // 注册成功后可跳转到登录页或主页
   // window.location.href = 'P-LOGIN.html';
+
 };
 
 const handlePhoneRegister = () => {
@@ -205,18 +210,17 @@ const handlePhoneRegister = () => {
     return;
   }
   
-  if (phoneForm.value.password !== phoneForm.value.confirmPassword) {
-    alert('两次输入的密码不一致');
-    return;
-  }
-  
   if (!phoneForm.value.agreeTerms) {
     alert('请阅读并同意用户协议和隐私政策');
     return;
   }
-  
+  if (!phoneForm.value.password !== phoneForm.value.confirmPassword) {
+    alert('两次输入的密码不一致')
+    return;
+  }
   // 模拟注册成功
   alert('注册成功，请登录');
+  switchToLogin()
   // 实际项目中应调用API进行注册
   // 注册成功后可跳转到登录页或主页
   // window.location.href = 'P-LOGIN.html';

@@ -174,7 +174,6 @@ defineProps({
   margin-bottom: 0.75rem;
 }
 
-
 .article-footer-list {
   display: flex;
   align-items: center;

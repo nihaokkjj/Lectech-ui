@@ -52,9 +52,11 @@ const validate = () => {
             return false;
         }
     }
+    errorMessage.value = ''
     return true;
-};   
+};  
 
+defineExpose({errorMessage})
 </script>
 
 <template>

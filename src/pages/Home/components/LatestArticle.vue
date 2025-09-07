@@ -268,6 +268,8 @@ const articles = ref([
 }
 
 .sort-buttons {
+  outline: none;
+  border-color:  #4f46e5;
   display: flex;
   align-items: center;
   background-color: #ffffff;
@@ -291,6 +293,7 @@ const articles = ref([
   transition: all 0.2s ease;
 }
 .sort-buttons button:hover {
+  outline: none;
   color: #4f46e5;
   border: none;
 }

@@ -1,5 +1,5 @@
 <script setup>
-import {getCurrentInstance, watch, ref, defineProps, defineEmits } from 'vue';
+import {getCurrentInstance, watch, ref, defineProps, defineExpose } from 'vue';
 
 const {proxy} = getCurrentInstance()
 //type有三种类型:email, tel(phone),text(username) 
@@ -22,7 +22,6 @@ if (props.type === 'email') {
 const placeholderText = '请输入'+ msgId
 //错误信息提示
 const errorMessage = ref('')
-
 //监听用户输入
 const emits = defineEmits(['update:modelValue'])
 watch (
@@ -44,17 +43,22 @@ const validate = (value) => {
             errorMessage.value = emailValidateResult
             return false
         } 
-    } else if (props.type === 'text') {
-            return true //对用户名的格式不做要求
-        } else if (props.type === 'tel') {
+    }  else if (props.type === 'tel') {
             const telValidateResult = proxy.Verify.phone(value, '请输入正确的电话号码')
             if(telValidateResult) {
                 errorMessage.value = telValidateResult
                 return false
             }
-        }
+        } else if (props.type === 'text') {
+        // 对于用户名，如果值存在，则验证通过
+        // 错误信息保持为空，直接返回 true
+        return true;
+    }
+        errorMessage.value = ''
         return true
     }
+
+defineExpose({errorMessage})
 </script>
 
 <template>

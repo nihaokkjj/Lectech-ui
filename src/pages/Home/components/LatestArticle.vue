@@ -298,6 +298,7 @@ const articles = ref([
   border: none;
 }
 .sort-buttons button.active {
+  outline: none;
   color: #4f46e5;
   background-color: rgba(79, 70, 229, 0.1);
   border: none;

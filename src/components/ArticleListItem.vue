@@ -64,14 +64,14 @@ defineProps({
 .tag {
   font-size: 0.75rem;
   padding: 0.25rem 0.5rem;
-  border-radius: 9999px;
+  border-radius: 999px;
   transition: all 0.2s ease;
 }
 
 /* === 普通标签颜色 === */
 .tag-default {
   color: #4b5563;
-  background-color: #f3f4f6;
+  background-color: 1px #f3f4f6;
 }
 .tag-default:hover {
   background-color: rgba(79, 70, 229, 0.1);
@@ -106,6 +106,7 @@ defineProps({
   width: 100%; 
   max-width: 100%;
   border-bottom: 1px solid #e5e7eb;
+  box-shadow: 5px 0px 1px #F3F4F6;;
   padding: 1rem;
   transition: all 0.2s ease;
 }

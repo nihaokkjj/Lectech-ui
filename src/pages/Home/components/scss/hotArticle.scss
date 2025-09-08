@@ -1,4 +1,9 @@
 .hot-articles-section {
+  background-color: #ffffff;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  transition: all 0.3s ease;
   margin-top: 5rem;
   margin-bottom: 1.5rem;
 }
@@ -40,7 +45,7 @@
 .hot-articles-grid {
   display: grid;
   grid-template-columns: repeat(1, minmax(0, 1fr));
-  gap: 1rem;
+  gap: 2rem;
 }
 @media (min-width: 768px) {
   .hot-articles-grid {

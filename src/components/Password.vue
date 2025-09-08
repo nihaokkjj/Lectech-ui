@@ -92,7 +92,6 @@ button {
 /* 默认边框颜色 */
 .form-input-focus {
   outline: none;
-  border-color: #4F46E5;
 }
 
 /* 输入框获得焦点时的边框颜色 */

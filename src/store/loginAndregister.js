@@ -28,6 +28,7 @@ export const useLoginStore = defineStore('loginAndregister', () => {
         console.log('用户已退出')
     }
     return {
+        isLoggedIn,
         userName,
         user,
         userName,

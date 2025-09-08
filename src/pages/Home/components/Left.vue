@@ -20,6 +20,7 @@ const categoryList = ref([
 
     <!-- 左侧卡片 -->
       <LeftCard
+      title="文章分类"
       :categoryList="categoryList"
         >
       </LeftCard>

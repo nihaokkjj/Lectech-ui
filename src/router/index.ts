@@ -44,7 +44,7 @@ const router = createRouter({
           component: Rank,
         },
         {
-          path: '/profile/:id',
+          path: '/profile',
           component: Profile,
         },       
         {

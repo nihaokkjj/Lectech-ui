@@ -1,51 +1,49 @@
 <script setup>
-import {ref, defineProps} from 'vue'
+import LeftCard from '@/components/LeftCard.vue';
+import {ref, defineEmits} from 'vue'
 
-const props = defineProps ({
-    title: String,
-    categoryList: {
-        type: Array,
-        required: true,
-        validator: (value) => {
-            return value.every(item => 
-                typeof item.id === 'number' &&
-                typeof item.name === 'string' &&
-                typeof item.icon === 'string'
-            )
-        }
-    }
-})
-
+//列表信息
+const profileList = ref([
+  {id: 0, name: '我的文章', icon: 'fa-file-alt'},
+  {id: 1, name: '我的收藏', icon: 'fa-bookmark'},
+  {id: 2, name: '我的评论', icon: 'fa-comment'},
+  {id: 3, name: '我的积分与等级', icon: 'fa-award'},
+  {id: 4, name: '我的关注/粉丝', icon: 'fa-user-friends'},
+  {id: 5, name: '编辑资料', icon: 'fa-user-edit'},
+])
 
 //访问的类别
 const activeId = ref(0)
 
+const emits = defineEmits(['changePage'])
 const changeList = (id)=>{
-  activeId.value = id
+  activeId.value = id //改变样式
+  emits('changePage', id) //切换渲染页面
 }
+
 </script>
 
 <template>
-    <aside id="sidebar" class="sidebar">
-      <div class="sidebar-card">
-        <h3 id="categories-title" class="categories-title">{{ props.title }}</h3>
-        <ul class="categories-list">
-          <li
-          v-for="list in props.categoryList" 
-          :key="list.id"
-         >
-            <div  
-            class="category-link"
-            :class="{'category-active-link': activeId === list.id}"
-            @click="changeList(list.id)"
-            >
-              <i class="fas" :class="list.icon"></i>
-              <span>{{list.name}}</span>
-            </div>
-          </li>
-        </ul>
-      </div>
-    </aside>
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-card">
+      <h3 id="categories-title" class="categories-title">个人中心</h3>
+      <ul class="categories-list">
+        <li
+        v-for="list in profileList" 
+        :key="list.id"
+        >
+          <div  
+          class="category-link"
+          :class="{'category-active-link': activeId === list.id}"
+          @click="changeList(list.id)"
+          >
+            <i class="fas" :class="list.icon"></i>
+            <span>{{list.name}}</span>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </aside>
 </template>
 
 <style scoped>

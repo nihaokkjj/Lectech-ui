@@ -2,8 +2,14 @@
 import {ref, onMounted} from 'vue'
 import { useRouter } from 'vue-router'
 import LoginAndRegister from '../../LoginAndRegister/index.vue'
+import {useLoginStore} from '@/store/loginAndregister'
+import { storeToRefs } from 'pinia'
 
+const LoginStore = useLoginStore()
 const router = useRouter()
+
+//判断是否登录, 显示用户个人头像信息
+const { isLoggedIn } = storeToRefs(LoginStore)
 
 const list_title = ref([
   {name:'首页', num: 0, link: '/'},
@@ -127,29 +133,30 @@ const loginRegister = (type) => {
                >
         </div>
            <!-- 未登录状态按钮 -->
-        <div class="auth-buttons">
+        <div class="auth-buttons" v-if="!isLoggedIn">
           <div href="#" id="login-btn" class="login-btn" @click="loginRegister('login')">登录</div>
           <div href="#" id="register-btn" class="register-btn" @click="loginRegister('register')">注册</div>
         </div>
-          <!-- 已登录状态 - 默认隐藏 -->
-        <div id="user-menu" class="user-menu">
-          <a href="P-ARTICLE_PUBLISH.html" id="publish-btn" class="publish-btn">
-            <i class="fas fa-pen-to-square"></i>
-            <span>发布文章</span>
-          </a>
-          <div class="notifications-container">
-            <button id="notifications-btn" class="notifications-btn">
-              <i class="fas fa-bell text-xl"></i>
-              <span class="notification-count">3</span>
-            </button>
-          </div>
-          <div class="profile-container">
-            <button id="profile-dropdown-btn" class="profile-dropdown-btn">
-              <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=256&q=80" alt="用户头像" class="profile-avatar">
-              <span class="profile-name">JaneDoe</span>
-              <i class="fas fa-chevron-down text-xs text-gray-400"></i>
-            </button>
-          </div>
+
+        <!-- 已登录状态 - 默认隐藏 -->
+        <div class="flex items-center space-x-4" v-else>
+            <a href="#" class="flex items-center space-x-1 text-primary hover:text-secondary">
+                <i class="fas fa-pen-to-square"></i>
+                <span>发布文章</span>
+            </a>
+            <div class="relative">
+                <button id="notifications-btn" class="text-gray-600 hover:text-primary relative p-1">
+                    <i class="fas fa-bell text-xl"></i>
+                    <span class="absolute top-0 right-0 bg-danger text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">3</span>
+                </button>
+            </div>
+            <div class="relative" @click="router.push('/profile')">
+                <button class="focus:outline-none flex items-center space-x-2">
+                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=256&q=80" alt="用户头像" class="w-8 h-8 rounded-full object-cover">
+                    <span class="text-gray-700 font-medium">JaneDoe</span>
+                    <i class="fas fa-chevron-down text-xs text-gray-400"></i>
+                </button>
+            </div>
         </div>
         <!-- 移动端菜单按钮 -->
         <button id="mobile-menu-btn" class="mobile-menu-btn">

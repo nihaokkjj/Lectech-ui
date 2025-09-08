@@ -1,5 +1,7 @@
 <script setup>
+import {ref} from 'vue'
 
+const activeId = ref(0)
 </script>
 
 <template>
@@ -11,8 +13,16 @@
             我的关注/粉丝
         </h2>
         <div class="flex space-x-2">
-            <button id="following-btn" class="px-3 py-1.5 text-sm text-primary bg-primary bg-opacity-10 rounded-lg">我的关注</button>
-            <button id="followers-btn" class="px-3 py-1.5 text-sm text-gray-600 hover:text-primary rounded-lg">我的粉丝</button>
+            <button 
+            class="px-3 py-1.5 text-sm text-gray-600 hover:text-primary rounded-lg"
+            :class="{'activeButton': activeId === 0}"
+            @click="activeId = 0"
+            >我的关注</button>
+            <button 
+            class="px-3 py-1.5 text-sm text-gray-600 hover:text-primary rounded-lg"
+            :class="{'activeButton': activeId === 1}"
+            @click="activeId = 1"
+            >我的粉丝</button>
         </div>
     </div>
     
@@ -151,5 +161,8 @@
 </template>
 
 <style scoped>
-
+.activeButton {
+    background-color: rgba(79, 70, 229, 0.1);
+    color: rgb(79 70 229);
+}
 </style>

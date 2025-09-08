@@ -26,7 +26,6 @@ button, input, optgroup, select, textarea {
   font-size: 100%;
   line-height: inherit;
   color: inherit;
-  border: none;
 }
 
 img, picture, video, canvas, svg {
@@ -97,7 +96,6 @@ button:focus-visible {
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
-  text-align: center;
 }
 
 @media (prefers-color-scheme: light) {
